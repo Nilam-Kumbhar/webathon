@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import User from '../models/User.js';
+import { findUserByEmailWithPassword } from '../models/User.js';
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -15,22 +15,16 @@ const toPublicUser = (userDoc) => {
 };
 
 /**
- * Mock Auth Controller — lightweight login endpoint for testing.
- *
- * Your teammate's auth module will replace this. This exists so you
- * can obtain a JWT token to test the advanced feature endpoints.
- *
- * POST /api/auth/login  — { email, password } → { token }
+ * Auth Controller — lightweight mock login endpoint.
  */
 export const mockLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-
     if (!email || !password) {
       return res.status(400).json({ success: false, message: 'Email and password required' });
     }
 
-    const user = await User.findOne({ email }).select('+password');
+    const user = findUserByEmailWithPassword(email);
     if (!user) {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
@@ -49,12 +43,7 @@ export const mockLogin = async (req, res, next) => {
     return res.json({
       success: true,
       token,
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
+      user: { _id: user._id, name: user.name, email: user.email, role: user.role },
     });
   } catch (error) {
     next(error);

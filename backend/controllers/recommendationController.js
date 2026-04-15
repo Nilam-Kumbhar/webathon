@@ -1,12 +1,9 @@
-import User from '../models/User.js';
-import MatchResult from '../models/MatchResult.js';
+import { findUserById, findUsers, updateUser } from '../models/User.js';
+import { findMatchResultsWithUser } from '../models/MatchResult.js';
 import { calculateMatchScore } from '../utils/matchingAlgorithm.js';
 
 /**
- * Recommendation Controller
- *
- * GET /api/recommendations/top   — top matches sorted by score
- * GET /api/recommendations/daily — daily suggestions (no repeats within a day)
+ * Recommendation Controller — top matches & daily suggestions.
  */
 
 // ─── Top Matches ────────────────────────────────────────
@@ -15,38 +12,27 @@ export const getTopRecommendations = async (req, res, next) => {
     const currentUser = req.user;
     const limit = parseInt(req.query.limit) || 10;
 
-    // Try to serve from cache first
-    const cached = await MatchResult.find({ user: currentUser._id })
-      .sort({ score: -1 })
-      .limit(limit)
-      .populate('matchedUser', 'name age city education profilePhoto interests')
-      .lean();
-
+    // Try cache first
+    const cached = findMatchResultsWithUser(currentUser._id, { limit });
     if (cached.length >= limit) {
       return res.json({
-        success: true,
-        source: 'cache',
-        count: cached.length,
+        success: true, source: 'cache', count: cached.length,
         data: cached.map((m) => ({
-          user: m.matchedUser,
-          score: m.score,
-          breakdown: m.breakdown,
-          explanation: m.explanation,
+          user: m.matchedUser, score: m.score,
+          breakdown: m.breakdown, explanation: m.explanation,
         })),
       });
     }
 
-    // Cache miss — compute fresh matches
+    // Cache miss — compute fresh
     const targetGender = currentUser.gender === 'male' ? 'female' : 'male';
-
-    const candidates = await User.find({
-      _id: { $ne: currentUser._id, $nin: currentUser.blockedUsers || [] },
-      gender: targetGender,
-      isBanned: false,
-    })
-      .select('name age city state country education interests profilePhoto dateOfBirth preferredAgeMin preferredAgeMax preferredEducation')
-      .limit(100)
-      .lean();
+    const candidates = findUsers(
+      {
+        gender: targetGender, isBanned: false,
+        excludeIds: [currentUser._id, ...(currentUser.blockedUsers || [])],
+      },
+      { limit: 100 }
+    );
 
     const scored = candidates
       .map((c) => ({ candidate: c, ...calculateMatchScore(currentUser, c) }))
@@ -54,14 +40,10 @@ export const getTopRecommendations = async (req, res, next) => {
       .slice(0, limit);
 
     return res.json({
-      success: true,
-      source: 'computed',
-      count: scored.length,
+      success: true, source: 'computed', count: scored.length,
       data: scored.map((m) => ({
-        user: m.candidate,
-        score: m.score,
-        breakdown: m.breakdown,
-        explanation: m.explanation,
+        user: m.candidate, score: m.score,
+        breakdown: m.breakdown, explanation: m.explanation,
       })),
     });
   } catch (error) {
@@ -72,55 +54,50 @@ export const getTopRecommendations = async (req, res, next) => {
 // ─── Daily Suggestions (no repeats) ─────────────────────
 export const getDailySuggestions = async (req, res, next) => {
   try {
-    const currentUser = await User.findById(req.user._id);
+    let currentUser = findUserById(req.user._id);
     const limit = parseInt(req.query.limit) || 5;
     const today = new Date().toDateString();
 
     // Reset shown list if the date has changed
+    let dailySuggestionsShown = currentUser.dailySuggestionsShown || [];
     if (
       !currentUser.dailySuggestionsDate ||
       new Date(currentUser.dailySuggestionsDate).toDateString() !== today
     ) {
-      currentUser.dailySuggestionsShown = [];
-      currentUser.dailySuggestionsDate = new Date();
+      dailySuggestionsShown = [];
+      updateUser(currentUser._id, {
+        dailySuggestionsShown: [],
+        dailySuggestionsDate: new Date().toISOString(),
+      });
+      currentUser = findUserById(currentUser._id);
     }
 
     const targetGender = currentUser.gender === 'male' ? 'female' : 'male';
-
-    // Exclude: self, blocked, banned, and already-shown-today
     const excludeIds = [
       currentUser._id,
       ...(currentUser.blockedUsers || []),
-      ...(currentUser.dailySuggestionsShown || []),
+      ...dailySuggestionsShown,
     ];
-
-    const candidates = await User.find({
-      _id: { $nin: excludeIds },
-      gender: targetGender,
-      isBanned: false,
-    })
-      .select('name age city state country education interests profilePhoto dateOfBirth preferredAgeMin preferredAgeMax preferredEducation')
-      .limit(50)
-      .lean();
+    const candidates = findUsers(
+      { gender: targetGender, isBanned: false, excludeIds },
+      { limit: 50 }
+    );
 
     const scored = candidates
       .map((c) => ({ candidate: c, ...calculateMatchScore(currentUser, c) }))
       .sort((a, b) => b.score - a.score)
       .slice(0, limit);
 
-    // Record that we showed these users today
+    // Record shown users
     const shownIds = scored.map((m) => m.candidate._id);
-    currentUser.dailySuggestionsShown.push(...shownIds);
-    await currentUser.save();
+    const updatedShown = [...dailySuggestionsShown, ...shownIds];
+    updateUser(currentUser._id, { dailySuggestionsShown: updatedShown });
 
     return res.json({
-      success: true,
-      count: scored.length,
+      success: true, count: scored.length,
       data: scored.map((m) => ({
-        user: m.candidate,
-        score: m.score,
-        breakdown: m.breakdown,
-        explanation: m.explanation,
+        user: m.candidate, score: m.score,
+        breakdown: m.breakdown, explanation: m.explanation,
       })),
     });
   } catch (error) {
