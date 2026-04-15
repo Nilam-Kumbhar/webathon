@@ -62,6 +62,26 @@ const userSchema = new mongoose.Schema(
     preferredAgeMax: { type: Number, default: 60 },
     preferredCity: { type: String, trim: true },
     preferredEducation: { type: String, trim: true },
+    preferredJob: { type: String, trim: true },
+    preferredReligion: { type: String, trim: true },
+    preferredCaste: { type: String, trim: true },
+    lifestylePreferences: [{ type: String, trim: true, lowercase: true }],
+    partnerPreferences: {
+      ageRange: {
+        min: { type: Number, default: 18 },
+        max: { type: Number, default: 60 },
+      },
+      location: {
+        city: { type: String, trim: true },
+        state: { type: String, trim: true },
+        country: { type: String, trim: true },
+      },
+      education: { type: String, trim: true },
+      job: { type: String, trim: true },
+      religion: { type: String, trim: true },
+      caste: { type: String, trim: true },
+      lifestyle: [{ type: String, trim: true, lowercase: true }],
+    },
 
     // ─── Verification ──────────────────────────────────────
     verification: {
@@ -104,6 +124,33 @@ userSchema.pre('save', function (next) {
     }
     this.age = age;
   }
+
+  // Keep legacy preference fields in sync for existing recommendation logic.
+  if (this.partnerPreferences?.ageRange?.min !== undefined) {
+    this.preferredAgeMin = this.partnerPreferences.ageRange.min;
+  }
+  if (this.partnerPreferences?.ageRange?.max !== undefined) {
+    this.preferredAgeMax = this.partnerPreferences.ageRange.max;
+  }
+  if (this.partnerPreferences?.location?.city !== undefined) {
+    this.preferredCity = this.partnerPreferences.location.city;
+  }
+  if (this.partnerPreferences?.education !== undefined) {
+    this.preferredEducation = this.partnerPreferences.education;
+  }
+  if (this.partnerPreferences?.job !== undefined) {
+    this.preferredJob = this.partnerPreferences.job;
+  }
+  if (this.partnerPreferences?.religion !== undefined) {
+    this.preferredReligion = this.partnerPreferences.religion;
+  }
+  if (this.partnerPreferences?.caste !== undefined) {
+    this.preferredCaste = this.partnerPreferences.caste;
+  }
+  if (Array.isArray(this.partnerPreferences?.lifestyle)) {
+    this.lifestylePreferences = this.partnerPreferences.lifestyle;
+  }
+
   next();
 });
 
