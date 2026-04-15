@@ -1,0 +1,84 @@
+.register-page {
+  min-height: 100vh; padding: 8rem 1.5rem 3rem;
+  background: radial-gradient(circle at top right, var(--surface), var(--surface-container-low));
+}
+.register-inner { max-width: 52rem; margin: 0 auto; }
+.register-hero { position: relative; margin-bottom: 3rem; }
+.register-glow {
+  position: absolute; top: -3rem; left: -3rem;
+  width: 12rem; height: 12rem;
+  background: var(--primary-fixed); opacity: 0.2;
+  border-radius: 50%; filter: blur(60px);
+}
+.register-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700; color: var(--primary);
+  letter-spacing: -0.03em; line-height: 1.15;
+  position: relative; z-index: 1;
+}
+.register-hero h1 span { font-style: italic; font-weight: 400; }
+.register-hero p {
+  margin-top: 1rem; color: var(--on-surface-variant);
+  font-size: 1.1rem; max-width: 28rem;
+}
+.register-card {
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-editorial);
+  overflow: hidden;
+}
+.register-error {
+  background: var(--error-container); color: #93000a;
+  padding: 1rem 2rem; font-size: 0.875rem;
+}
+.register-form { padding: 2.5rem 3rem; }
+.form-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2.5rem 3rem;
+}
+.form-field.full-width { grid-column: 1 / -1; }
+.form-field {
+  border-bottom: 1px solid rgba(215,193,195,0.3);
+  padding-bottom: 0.5rem;
+  transition: border-color 0.3s;
+}
+.form-field:focus-within { border-bottom-color: var(--primary); }
+.form-field label {
+  display: block; font-family: var(--font-label);
+  font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.15em; color: var(--on-surface-variant);
+  margin-bottom: 0.25rem;
+}
+.form-field:focus-within label { color: var(--primary); }
+.form-field input, .form-field select, .form-field textarea {
+  width: 100%; background: transparent; border: none;
+  padding: 0.5rem 0; font-size: 1.05rem;
+  font-family: var(--font-headline);
+  color: var(--on-surface); outline: none; resize: vertical;
+}
+.form-field select { appearance: none; cursor: pointer; }
+.form-field input::placeholder, .form-field textarea::placeholder {
+  color: rgba(215,193,195,0.5);
+}
+.field-with-icon {
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.field-with-icon .material-symbols-outlined { color: var(--outline); }
+
+.register-submit {
+  margin-top: 3rem; padding-top: 2.5rem;
+  border-top: 1px solid rgba(215,193,195,0.1);
+  display: flex; justify-content: flex-end;
+}
+.register-login-link {
+  text-align: center; margin-top: 2rem;
+  font-size: 0.875rem; color: #78716c;
+}
+.register-login-link a {
+  color: var(--primary); font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .register-form { padding: 2rem 1.5rem; }
+}

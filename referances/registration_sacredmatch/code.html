@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SacredMatch | Begin Your Journey</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#eceabe",
+                    "surface-tint": "#8c4b55",
+                    "secondary": "#74593f",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#d14131",
+                    "on-surface-variant": "#524345",
+                    "tertiary": "#ae281b",
+                    "secondary-fixed": "#ffdcbe",
+                    "on-tertiary-container": "#fffbff",
+                    "surface-container-highest": "#e6e5b9",
+                    "on-background": "#1d1d03",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f8f6c9",
+                    "primary": "#8a4853",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#dedcb1",
+                    "surface-bright": "#fefccf",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#857374",
+                    "inverse-surface": "#323214",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e6e5b9",
+                    "surface": "#fefccf",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#f5f3c7",
+                    "primary-fixed-dim": "#ffb2bc",
+                    "on-primary-fixed": "#3a0915",
+                    "on-secondary-fixed-variant": "#5a422a",
+                    "on-tertiary-fixed-variant": "#8f0f07",
+                    "on-primary-fixed-variant": "#70343e",
+                    "secondary-fixed-dim": "#e3c0a0",
+                    "background": "#fefccf",
+                    "primary-fixed": "#ffd9dd",
+                    "tertiary-fixed": "#ffdad4",
+                    "on-secondary-fixed": "#2a1704",
+                    "on-secondary-container": "#795d43",
+                    "inverse-primary": "#ffb2bc",
+                    "surface-container": "#f2f0c4",
+                    "on-tertiary-fixed": "#410000",
+                    "primary-container": "#a6606b",
+                    "outline-variant": "#d7c1c3",
+                    "on-surface": "#1d1d03",
+                    "secondary-container": "#fed9b8",
+                    "on-primary-container": "#fffbff",
+                    "tertiary-fixed-dim": "#ffb4a8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .form-input-focus:focus-within label {
+            transform: translateY(-1.5rem) scale(0.85);
+            color: #8a4853;
+        }
+        .bg-editorial-gradient {
+            background: radial-gradient(circle at top right, #fefccf 0%, #f8f6c9 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/20">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md shadow-[0px_12px_32px_rgba(29,29,3,0.06)]">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="font-['Noto_Serif'] text-2xl font-bold tracking-tighter text-[#8a4853] dark:text-[#a6606b]">SacredMatch</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">Home</a>
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">Search Profiles</a>
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">Success Stories</a>
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">About Us</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 dark:text-stone-400 hover:opacity-80 transition-all duration-300 active:scale-95">Login</button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-2 rounded-full font-headline font-bold text-lg hover:opacity-90 transition-all active:scale-95 shadow-md">Register</button>
+</div>
+</div>
+</nav>
+<main class="min-h-screen pt-32 pb-20 bg-editorial-gradient">
+<div class="max-w-4xl mx-auto px-6">
+<!-- Hero Header Section -->
+<div class="relative mb-16">
+<div class="absolute -top-12 -left-12 w-48 h-48 bg-primary-fixed opacity-20 rounded-full blur-3xl"></div>
+<h1 class="font-headline text-5xl md:text-6xl font-bold text-primary tracking-tighter relative z-10 leading-tight">
+                    Your Sacred <span class="italic font-normal">Story</span> <br/> Begins Here.
+                </h1>
+<p class="mt-4 text-on-surface-variant font-body text-lg max-w-md">
+                    Join a sanctuary designed for intentional connections and lifelong unions.
+                </p>
+</div>
+<!-- Registration Form Container -->
+<div class="bg-surface-container-lowest rounded-lg shadow-[0px_12px_32px_rgba(29,29,3,0.06)] overflow-hidden relative">
+<form class="p-8 md:p-12">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+<!-- Name Field -->
+<div class="relative group border-b border-outline-variant/30 pb-2 transition-all focus-within:border-primary">
+<label class="block font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">Full Name</label>
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-lg font-headline placeholder:text-outline-variant/50" placeholder="Enter your name" type="text"/>
+</div>
+<!-- Gender Field -->
+<div class="relative group border-b border-outline-variant/30 pb-2 transition-all focus-within:border-primary">
+<label class="block font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">Gender Identity</label>
+<select class="w-full bg-transparent border-none focus:ring-0 p-0 text-lg font-headline appearance-none cursor-pointer">
+<option disabled="" selected="" value="">Select gender</option>
+<option value="woman">Woman</option>
+<option value="man">Man</option>
+<option value="non-binary">Non-binary</option>
+</select>
+</div>
+<!-- DOB Field -->
+<div class="relative group border-b border-outline-variant/30 pb-2 transition-all focus-within:border-primary">
+<label class="block font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">Date of Birth</label>
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-lg font-headline text-on-surface-variant" type="date"/>
+</div>
+<!-- Religion Field -->
+<div class="relative group border-b border-outline-variant/30 pb-2 transition-all focus-within:border-primary">
+<label class="block font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">Faith / Religion</label>
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-lg font-headline placeholder:text-outline-variant/50" placeholder="e.g. Christian, Spiritual" type="text"/>
+</div>
+<!-- Education Field -->
+<div class="relative group border-b border-outline-variant/30 pb-2 transition-all focus-within:border-primary">
+<label class="block font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">Highest Education</label>
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-lg font-headline placeholder:text-outline-variant/50" placeholder="e.g. Masters in Fine Arts" type="text"/>
+</div>
+<!-- Profession Field -->
+<div class="relative group border-b border-outline-variant/30 pb-2 transition-all focus-within:border-primary">
+<label class="block font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">Profession</label>
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-lg font-headline placeholder:text-outline-variant/50" placeholder="e.g. Architect" type="text"/>
+</div>
+<!-- Location Field -->
+<div class="relative group border-b border-outline-variant/30 pb-2 transition-all focus-within:border-primary md:col-span-2">
+<label class="block font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">Current Location</label>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-outline mr-2">location_on</span>
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-lg font-headline placeholder:text-outline-variant/50" placeholder="City, Country" type="text"/>
+</div>
+</div>
+<!-- Photo Upload Area -->
+<div class="md:col-span-2 mt-4">
+<label class="block font-label text-xs uppercase tracking-widest text-on-surface-variant mb-4">Portrait Upload</label>
+<div class="relative group">
+<div class="w-full aspect-[21/9] rounded-md border-2 border-dashed border-outline-variant/40 flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="p-4 rounded-full bg-white shadow-sm mb-3 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl">add_a_photo</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant">Drop your best portrait here or <span class="text-primary font-bold">browse</span></p>
+<p class="text-[10px] text-outline mt-1 tracking-widest uppercase">Max 5MB • JPG, PNG</p>
+<input class="absolute inset-0 opacity-0 cursor-pointer" type="file"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Submission Area -->
+<div class="mt-16 flex flex-col md:flex-row items-center justify-between gap-8 border-t border-outline-variant/10 pt-10">
+<div class="flex items-start gap-3 max-w-sm">
+<input class="mt-1 rounded-sm border-outline-variant text-primary focus:ring-primary" id="terms" type="checkbox"/>
+<label class="text-xs text-on-surface-variant leading-relaxed" for="terms">
+                                I agree to the <a class="text-primary underline" href="#">Terms of Service</a> and acknowledge the <a class="text-primary underline" href="#">Privacy Policy</a> of SacredMatch.
+                            </label>
+</div>
+<button class="w-full md:w-auto bg-gradient-to-br from-primary to-primary-container text-on-primary px-12 py-4 rounded-full font-headline font-bold text-xl hover:shadow-xl hover:scale-[1.02] transition-all active:scale-95 flex items-center justify-center gap-3" type="submit">
+                            Create My Profile
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+<!-- Supporting Text -->
+<div class="mt-12 text-center">
+<p class="font-body text-sm text-stone-500 uppercase tracking-[0.2em]">Crafted for the discerning heart</p>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full pt-16 pb-8 bg-[#f8f6c9] dark:bg-stone-950">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-12 max-w-7xl mx-auto border-t border-[#d7c1c3]/15 pt-12">
+<div class="flex flex-col gap-4">
+<span class="font-['Noto_Serif'] text-xl italic text-[#8a4853]">SacredMatch</span>
+<p class="font-['Manrope'] text-sm text-stone-500 dark:text-stone-400">Curating unions that honor tradition and elevate connection.</p>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-['Manrope'] text-sm uppercase tracking-wider text-[#1d1d03] dark:text-stone-200 font-bold">Inquiry</h4>
+<a class="font-['Manrope'] text-sm text-stone-500 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">Contact Info</a>
+<a class="font-['Manrope'] text-sm text-stone-500 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">Social Links</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-['Manrope'] text-sm uppercase tracking-wider text-[#1d1d03] dark:text-stone-200 font-bold">Legal</h4>
+<a class="font-['Manrope'] text-sm text-stone-500 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">Privacy Policy</a>
+<a class="font-['Manrope'] text-sm text-stone-500 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-4 items-start md:items-end">
+<div class="relative w-full h-32 rounded-lg overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
+<img class="w-full h-full object-cover" data-alt="Soft focused wedding venue with elegant white florals and warm string lights hanging from a rustic ceiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4okdlBI4uoJYEFyK5U8UmoQKQxn30Ib9JNrQXEC5svTykBLnHC9tTsIXp19FmRrvICzhOW25Y_YcIkIXp1GliTFyjtj0pxNmj6fQxmDVq0SMpGH9tzzzeyridCm6L-bhuR4j_SBgH0vasEHLDs4c-L2GqaVk62hT459ZUf6zP1ebcwyO3NkcvtB6ssLo0gthSckT3vfU080cpt2qCNpy95n3AfjYhPUpiIjBCqA5gorxN2z6_IOaVhX_rQvuPKWHY69ht1oQyWWGY"/>
+</div>
+<p class="font-['Manrope'] text-[10px] uppercase tracking-tighter text-stone-400">© 2024 SacredMatch. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</body></html>

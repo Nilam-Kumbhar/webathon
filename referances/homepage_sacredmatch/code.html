@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#eceabe",
+                    "surface-tint": "#8c4b55",
+                    "secondary": "#74593f",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#d14131",
+                    "on-surface-variant": "#524345",
+                    "tertiary": "#ae281b",
+                    "secondary-fixed": "#ffdcbe",
+                    "on-tertiary-container": "#fffbff",
+                    "surface-container-highest": "#e6e5b9",
+                    "on-background": "#1d1d03",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f8f6c9",
+                    "primary": "#8a4853",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#dedcb1",
+                    "surface-bright": "#fefccf",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#857374",
+                    "inverse-surface": "#323214",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e6e5b9",
+                    "surface": "#fefccf",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#f5f3c7",
+                    "primary-fixed-dim": "#ffb2bc",
+                    "on-primary-fixed": "#3a0915",
+                    "on-secondary-fixed-variant": "#5a422a",
+                    "on-tertiary-fixed-variant": "#8f0f07",
+                    "on-primary-fixed-variant": "#70343e",
+                    "secondary-fixed-dim": "#e3c0a0",
+                    "background": "#fefccf",
+                    "primary-fixed": "#ffd9dd",
+                    "tertiary-fixed": "#ffdad4",
+                    "on-secondary-fixed": "#2a1704",
+                    "on-secondary-container": "#795d43",
+                    "inverse-primary": "#ffb2bc",
+                    "surface-container": "#f2f0c4",
+                    "on-tertiary-fixed": "#410000",
+                    "primary-container": "#a6606b",
+                    "outline-variant": "#d7c1c3",
+                    "on-surface": "#1d1d03",
+                    "secondary-container": "#fed9b8",
+                    "on-primary-container": "#fffbff",
+                    "tertiary-fixed-dim": "#ffb4a8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0px 12px 32px rgba(29, 29, 3, 0.06);
+        }
+        .signature-gradient {
+            background: linear-gradient(45deg, #8a4853, #a6606b);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md shadow-[0px_12px_32px_rgba(29,29,3,0.06)]">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="font-['Noto_Serif'] text-2xl font-bold tracking-tighter text-[#8a4853] dark:text-[#a6606b]">SacredMatch</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-[#8a4853] dark:text-[#a6606b] border-b-2 border-[#8a4853] pb-1" href="#">Home</a>
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">Search Profiles</a>
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">Success Stories</a>
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">About Us</a>
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 dark:text-stone-400 hover:text-[#8a4853] transition-colors" href="#">Contact</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-stone-600 font-medium px-4 py-2 hover:opacity-80 transition-all active:scale-95">Login</button>
+<button class="signature-gradient text-on-primary px-8 py-2 rounded-full font-bold shadow-md hover:opacity-90 transition-all active:scale-95">Register</button>
+</div>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center overflow-hidden px-8">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="Luxurious traditional Indian wedding ceremony with warm golden lighting, ornate floral decorations, and out of focus elegant fabrics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr-PxSNy8Y4j0MkBuviAXGeJbavlVHsf4zm2c9ZKDaDSKiUoTsK67wesBJ0w3Adn-bXLCML6UMUlIxpKWvNKdKj_nkcQif96pesgYwuxp6GNHdvt-Epefm-LIuLJpzfuqkHG1FDwHwACRhI5GvKCcT1lg7iDJQz8JPVDxQNWaDOIUP-I5p3_NVLQGAO9z8bOaV70MLEF-8rQsK_Hy_ML4f-sizJuvEATl2_A2luQjn3G1FW_4cIraV2R3GI5BzY0wqD0AHtICp-r3Z"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface/90 via-surface/40 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-7xl mx-auto w-full">
+<div class="max-w-2xl">
+<h1 class="font-headline text-6xl md:text-7xl font-bold text-on-background leading-tight mb-6 tracking-tight">
+                        Find Your Perfect <br/><span class="text-primary italic">Life Partner</span>
+</h1>
+<p class="text-xl text-on-surface-variant mb-10 font-body max-w-lg leading-relaxed">
+                        Join the most trusted matrimonial platform for modern Indian families. We curate connections that respect tradition and embrace the future.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="signature-gradient text-on-primary text-lg font-bold px-10 py-4 rounded-full editorial-shadow hover:opacity-90 transition-all active:scale-95">
+                            Create Profile
+                        </button>
+<button class="bg-surface-container-lowest text-primary text-lg font-bold px-10 py-4 rounded-full border border-outline-variant/20 editorial-shadow hover:bg-surface-container-low transition-all active:scale-95">
+                            Search Matches
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Search -->
+<section class="relative z-20 -mt-16 max-w-6xl mx-auto px-4">
+<div class="bg-surface-container-lowest p-8 md:p-12 rounded-xl editorial-shadow grid grid-cols-1 md:grid-cols-5 gap-6 items-end">
+<div class="space-y-2">
+<label class="font-label text-xs uppercase tracking-wider text-on-surface-variant block ml-1">Looking for</label>
+<select class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary p-3 text-on-surface">
+<option>Groom</option>
+<option>Bride</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label text-xs uppercase tracking-wider text-on-surface-variant block ml-1">Age Range</label>
+<select class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary p-3 text-on-surface">
+<option>21 - 25</option>
+<option>26 - 30</option>
+<option>31 - 35</option>
+<option>36+</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label text-xs uppercase tracking-wider text-on-surface-variant block ml-1">Religion</label>
+<select class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary p-3 text-on-surface">
+<option>Hindu</option>
+<option>Sikh</option>
+<option>Muslim</option>
+<option>Christian</option>
+<option>Jain</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label text-xs uppercase tracking-wider text-on-surface-variant block ml-1">Location</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary p-3 text-on-surface placeholder-on-surface-variant/50" placeholder="City or State" type="text"/>
+</div>
+<button class="signature-gradient text-on-primary h-[52px] rounded-lg font-bold transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+                    Find Match
+                </button>
+</div>
+</section>
+<!-- Features -->
+<section class="py-24 px-8 max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="flex flex-col items-center text-center space-y-4 group">
+<div class="w-20 h-20 bg-primary-fixed rounded-2xl flex items-center justify-center text-primary transition-transform group-hover:-translate-y-2">
+<span class="material-symbols-outlined text-4xl" data-icon="verified_user">verified_user</span>
+</div>
+<h3 class="font-headline text-2xl font-bold">Verified Profiles</h3>
+<p class="text-on-surface-variant leading-relaxed">Every member is manually verified by our team to ensure the highest quality of authentic connections.</p>
+</div>
+<div class="flex flex-col items-center text-center space-y-4 group">
+<div class="w-20 h-20 bg-primary-fixed rounded-2xl flex items-center justify-center text-primary transition-transform group-hover:-translate-y-2">
+<span class="material-symbols-outlined text-4xl" data-icon="lock">lock</span>
+</div>
+<h3 class="font-headline text-2xl font-bold">Privacy Protected</h3>
+<p class="text-on-surface-variant leading-relaxed">Your data and photos are kept secure with advanced privacy controls you can customize at any time.</p>
+</div>
+<div class="flex flex-col items-center text-center space-y-4 group">
+<div class="w-20 h-20 bg-primary-fixed rounded-2xl flex items-center justify-center text-primary transition-transform group-hover:-translate-y-2">
+<span class="material-symbols-outlined text-4xl" data-icon="family_restroom">family_restroom</span>
+</div>
+<h3 class="font-headline text-2xl font-bold">Trusted by Families</h3>
+<p class="text-on-surface-variant leading-relaxed">A platform built with family values in mind, helping parents and children find the right union together.</p>
+</div>
+</div>
+</section>
+<!-- How It Works -->
+<section class="py-24 bg-surface-container-low px-8">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16">
+<span class="font-label text-sm uppercase tracking-[0.2em] text-primary font-bold">The Journey</span>
+<h2 class="font-headline text-4xl md:text-5xl font-bold mt-4">How It Works</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+<!-- Connector line for desktop -->
+<div class="hidden md:block absolute top-12 left-1/4 right-1/4 h-px bg-outline-variant/30 z-0"></div>
+<div class="relative z-10 flex flex-col items-center text-center space-y-6">
+<div class="w-24 h-24 bg-surface-container-lowest rounded-full editorial-shadow flex items-center justify-center text-primary text-3xl font-headline font-bold">1</div>
+<div class="space-y-2">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="how_to_reg">how_to_reg</span>
+<h4 class="font-headline text-xl font-bold">Sign Up</h4>
+<p class="text-on-surface-variant text-sm px-6">Create your profile with details about your background, career, and lifestyle.</p>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center space-y-6">
+<div class="w-24 h-24 bg-surface-container-lowest rounded-full editorial-shadow flex items-center justify-center text-primary text-3xl font-headline font-bold">2</div>
+<div class="space-y-2">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="tune">tune</span>
+<h4 class="font-headline text-xl font-bold">Set Preferences</h4>
+<p class="text-on-surface-variant text-sm px-6">Define what you are looking for in a partner through our detailed filters.</p>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center space-y-6">
+<div class="w-24 h-24 bg-surface-container-lowest rounded-full editorial-shadow flex items-center justify-center text-primary text-3xl font-headline font-bold">3</div>
+<div class="space-y-2">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="favorite">favorite</span>
+<h4 class="font-headline text-xl font-bold">Connect</h4>
+<p class="text-on-surface-variant text-sm px-6">Start meaningful conversations with matches that resonate with your soul.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Success Stories -->
+<section class="py-24 px-8 max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+<div>
+<span class="font-label text-sm uppercase tracking-[0.2em] text-primary font-bold">Destiny Realized</span>
+<h2 class="font-headline text-4xl md:text-5xl font-bold mt-4">Success Stories</h2>
+</div>
+<button class="text-primary font-bold flex items-center gap-2 hover:translate-x-1 transition-transform">
+                    View all stories <span class="material-symbols-outlined">trending_flat</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Story 1 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden editorial-shadow group">
+<div class="h-80 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Happy Indian couple in traditional wedding attire smiling at each other in a sunlit garden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdlnhIsNQkfKFt-8zYxBUYaEp6Xg15FPzC791_FdvhVrBZzWVAQLYqcqmhs14FWiBZjIB8ekRQ7XJFQjUxj7sFspGqyKR2deHxrULXgq1ftjYh1QUHJ_8LxJE7iGmTE_tUutRxXQwHP9BSgR22aEscY3F6K62zzmYSW3wUlRAGkQ4PNUp1ZyVGv1GibQ1Q4_0idfANojmztR665HgC-s2xEg4YExG1ChdhEBQwYId_u2YNoFmsZcBONOirv1uXp1tWsmw4T8CGaB7O"/>
+</div>
+<div class="p-8">
+<h4 class="font-headline text-2xl font-bold mb-3">Arjun &amp; Priya</h4>
+<p class="text-on-surface-variant italic leading-relaxed mb-6">"SacredMatch understood our family values perfectly. Within two months, I found someone who feels like home."</p>
+<div class="font-label text-xs tracking-widest text-primary font-bold">MATCHED IN FEB 2024</div>
+</div>
+</div>
+<!-- Story 2 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden editorial-shadow group md:translate-y-8">
+<div class="h-80 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Modern Indian couple laughing together during an outdoor dinner party with bokeh lights background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS_TPLFHrWnBRAHCki5WXrwhujSKZ9O-W9vuAOjruJ34PqfyunyXUPTVQ_hPKLphyKka0RmFJjUKb5sK-a5mWaeZc3JP0UB_0NpGPsn6Mq4kGtgiA1n16BCVEtOmifNLkGdcGqxG63VrcA9WkAdXU3rPtOVBioatDARWzrPR9yEv85OaGowp6645CwEu3CyLvUqJW6auAhvRiPM19K89Y7Ds8eNmZO2ybqV3X2tUlvNekLxHUEpBGGUAJu5bF_zEnRJK6qoL_FN2YJ"/>
+</div>
+<div class="p-8">
+<h4 class="font-headline text-2xl font-bold mb-3">Rohan &amp; Meera</h4>
+<p class="text-on-surface-variant italic leading-relaxed mb-6">"We were both career-focused and struggling to meet like-minded people. SacredMatch bridged that gap effortlessly."</p>
+<div class="font-label text-xs tracking-widest text-primary font-bold">MATCHED IN NOV 2023</div>
+</div>
+</div>
+<!-- Story 3 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden editorial-shadow group">
+<div class="h-80 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Portrait of a smiling couple in traditional silk outfits standing in an elegant architectural setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzf8rDHjv4U9RF45HxjDHtEUs1zkG7DhFdKJCBkvrdu6RxP2KfRwThAJlbnaD8NyPhgQ5UtyG04dtCntUOUQW0kl9EBAIU_TGbXFqFn1aHunl1Jvca7cgTRsaCAQXjd9Rr_LxZZjf3t5x6S4xrNHwlRCnW4OnUz6dK06pGh4qfesT9OsRD2iq0Jf0goqGczpIcnLKhP7__vBo0A9ZnNjrxi-CqIsmNYLIx-HF3uMUGu2blaUUsgApCOML4eZO4VAtbGPD1WfuxOT2r"/>
+</div>
+<div class="p-8">
+<h4 class="font-headline text-2xl font-bold mb-3">Vikram &amp; Ananya</h4>
+<p class="text-on-surface-variant italic leading-relaxed mb-6">"The compatibility tools helped us realize we shared the same outlook on life before we even met in person."</p>
+<div class="font-label text-xs tracking-widest text-primary font-bold">MATCHED IN JAN 2024</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 px-8">
+<div class="max-w-7xl mx-auto signature-gradient rounded-xl p-12 md:p-20 text-center text-on-primary editorial-shadow overflow-hidden relative">
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+<div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"></div>
+<h2 class="font-headline text-4xl md:text-5xl font-bold mb-6 relative z-10">Your Story Begins Today</h2>
+<p class="text-xl opacity-90 mb-10 max-w-2xl mx-auto font-body relative z-10">Join thousands of happy families who found their perfect match through our editorial sanctuary of connections.</p>
+<button class="bg-surface-container-lowest text-primary px-12 py-5 rounded-full text-lg font-bold shadow-xl hover:scale-105 transition-all active:scale-95 relative z-10">
+                    Get Started Now
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f8f6c9] dark:bg-stone-950 w-full pt-16 pb-8 border-t border-[#d7c1c3]/15">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-12 max-w-7xl mx-auto">
+<div class="space-y-6">
+<div class="font-['Noto_Serif'] text-xl italic text-[#8a4853]">SacredMatch</div>
+<p class="text-stone-500 dark:text-stone-400 font-body text-sm leading-relaxed">Defining the next generation of matrimonial connections through editorial elegance and deep trust.</p>
+</div>
+<div class="space-y-4">
+<h4 class="font-['Manrope'] text-sm uppercase tracking-wider text-[#1d1d03] dark:text-stone-200 font-bold">Platform</h4>
+<ul class="space-y-3">
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:text-[#8a4853] transition-colors" href="#">Success Stories</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:text-[#8a4853] transition-colors" href="#">Safety Center</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:text-[#8a4853] transition-colors" href="#">Matchmaking Process</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-['Manrope'] text-sm uppercase tracking-wider text-[#1d1d03] dark:text-stone-200 font-bold">Company</h4>
+<ul class="space-y-3">
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:text-[#8a4853] transition-colors" href="#">About Us</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:text-[#8a4853] transition-colors" href="#">Contact Info</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 text-sm hover:text-[#8a4853] transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-['Manrope'] text-sm uppercase tracking-wider text-[#1d1d03] dark:text-stone-200 font-bold">Connect</h4>
+<div class="flex gap-4">
+<a class="w-10 h-10 bg-white dark:bg-stone-900 rounded-full flex items-center justify-center text-[#8a4853] shadow-sm hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined text-lg">public</span>
+</a>
+<a class="w-10 h-10 bg-white dark:bg-stone-900 rounded-full flex items-center justify-center text-[#8a4853] shadow-sm hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined text-lg">mail</span>
+</a>
+<a class="w-10 h-10 bg-white dark:bg-stone-900 rounded-full flex items-center justify-center text-[#8a4853] shadow-sm hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined text-lg">share</span>
+</a>
+</div>
+</div>
+</div>
+<div class="mt-16 pt-8 border-t border-stone-200 dark:border-stone-800 px-12 max-w-7xl mx-auto text-center">
+<p class="font-['Manrope'] text-sm uppercase tracking-wider text-stone-500 dark:text-stone-400">© 2024 SacredMatch. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

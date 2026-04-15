@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal Union | SacredMatch Conversations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ffdad4",
+                    "surface-container": "#f2f0c4",
+                    "primary-fixed-dim": "#ffb2bc",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#a6606b",
+                    "on-tertiary-container": "#fffbff",
+                    "outline-variant": "#d7c1c3",
+                    "tertiary": "#ae281b",
+                    "on-surface-variant": "#524345",
+                    "surface-dim": "#dedcb1",
+                    "secondary": "#74593f",
+                    "secondary-fixed-dim": "#e3c0a0",
+                    "on-secondary-fixed": "#2a1704",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#e6e5b9",
+                    "secondary-container": "#fed9b8",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#795d43",
+                    "primary": "#8a4853",
+                    "inverse-surface": "#323214",
+                    "surface": "#fefccf",
+                    "on-surface": "#1d1d03",
+                    "on-primary-fixed-variant": "#70343e",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#ffb2bc",
+                    "inverse-on-surface": "#f5f3c7",
+                    "background": "#fefccf",
+                    "tertiary-container": "#d14131",
+                    "surface-bright": "#fefccf",
+                    "outline": "#857374",
+                    "on-primary-container": "#fffbff",
+                    "surface-container-high": "#eceabe",
+                    "primary-fixed": "#ffd9dd",
+                    "surface-variant": "#e6e5b9",
+                    "on-secondary-fixed-variant": "#5a422a",
+                    "error": "#ba1a1a",
+                    "on-background": "#1d1d03",
+                    "on-tertiary-fixed-variant": "#8f0f07",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#ffdcbe",
+                    "on-primary-fixed": "#3a0915",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb4a8",
+                    "surface-tint": "#8c4b55",
+                    "surface-container-low": "#f8f6c9",
+                    "on-tertiary-fixed": "#410000",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #fefccf; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d7c1c3; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fefccf]/80 dark:bg-stone-950/80 backdrop-blur-xl shadow-[0px_12px_32px_rgba(29,29,3,0.06)]">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-serif italic text-[#8a4853] dark:text-[#a6606b]">Ethereal Union</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-[#524345] dark:text-stone-400 font-medium hover:text-[#8a4853] transition-colors duration-300 font-label uppercase tracking-widest text-xs" href="#">Discover</a>
+<a class="text-[#524345] dark:text-stone-400 font-medium hover:text-[#8a4853] transition-colors duration-300 font-label uppercase tracking-widest text-xs" href="#">Matches</a>
+<a class="text-[#8a4853] dark:text-[#a6606b] font-semibold border-b-2 border-[#8a4853] pb-1 font-label uppercase tracking-widest text-xs" href="#">Stories</a>
+<a class="text-[#524345] dark:text-stone-400 font-medium hover:text-[#8a4853] transition-colors duration-300 font-label uppercase tracking-widest text-xs" href="#">Concierge</a>
+</nav>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-[#8a4853] cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-[#8a4853] cursor-pointer" data-weight="fill" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<img alt="User profile" class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="Close-up of a stylish man with a warm smile and gentle eyes in soft morning sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkoLl25uvCsKHPXBf9-o7sRkiVLewzPPwHBivwUGrSYpINlw5390Epop3P62Qvn6HWtOySsr3hO8mtcWGc0j7JeBer2qWSRWFN7zT6UJJE969rL_fItUTwjqdPAaYEIt78FKIaTZ9Pxhzx-YScWobYHslS-OR8UIUxdlFYoHg2StTBuLNlgRO_0jDhsIagVVmxgeAV_k9RSq3jHTn8GhxzhMODxfGi3IZv1Bw8sFXTrhfcmJaDRD9578kJpCPPt4kY7oJQ4HprLN1k"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-20 md:pb-0 h-screen max-w-7xl mx-auto px-4 md:px-8 flex gap-6">
+<!-- Matches Sidebar -->
+<aside class="hidden lg:flex flex-col w-96 bg-surface-container-low rounded-t-lg overflow-hidden border-none">
+<div class="p-6">
+<h2 class="font-serif text-2xl text-primary italic mb-6">Sacred Connections</h2>
+<div class="relative mb-6">
+<input class="w-full bg-surface-container-lowest border-none rounded-full px-6 py-3 text-sm focus:ring-1 focus:ring-primary shadow-sm italic placeholder:text-outline" placeholder="Search conversations..." type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+</div>
+<div class="space-y-4 overflow-y-auto max-h-[calc(100vh-320px)] pr-2">
+<!-- Active Match Item -->
+<div class="flex items-center gap-4 p-4 rounded-lg bg-surface-container-lowest shadow-[0px_8px_24px_rgba(29,29,3,0.04)] cursor-pointer border-l-4 border-primary">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="Beautiful woman with soft natural hair smiling gently against a sunlit garden background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAFIRMkFITARnOdIU7ai_WhY1qLScTV08ubkIPP56gejQD7lQJya7t5Nekmb2hwnVGTUlAlvSEVRpcjz4HKxCHJ1HENjhUR_25PbmIXPwq2YzoMVrWakB7YEiOAvRhb0uUg7L5haPzJDxyRpjWGwjXWwHWLIo0Yte4izlru3RW8o2y5EF7D-hXTlLIQEuZcoV24kKxX4oqLXEDyn5XixrvVcJppBJhZVD7ePJTCBDXQKfjsaI1KKY4IMxawViu579cSRMXAl3YpXSF"/>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-surface-container-lowest rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-serif text-on-surface font-semibold truncate">Ananya S.</h3>
+<span class="text-[10px] font-label font-bold text-primary tracking-tighter bg-primary-fixed px-2 py-0.5 rounded-full">98% MATCH</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate mt-0.5 italic">"The editorial on meditation was..."</p>
+<span class="text-[9px] text-outline font-label uppercase tracking-widest mt-1 block">Active Now</span>
+</div>
+</div>
+<!-- Inactive Match Item -->
+<div class="flex items-center gap-4 p-4 rounded-lg hover:bg-surface-container-high transition-all cursor-pointer">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover opacity-80" data-alt="Handsome man with thoughtful expression in a cream linen shirt, soft bokeh outdoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq52jAmdBT2KVgIhLM2MPMiegFgvjrYs5jV6sNFSoxR8qqBfpFxKJCgvd9WH0Z_XG5XlR2RmIwJyZYVbQuBR-BWpiJhbhbHvKAK-VDSxnctC-rLipWJBdYJs2r3ZPJ9b63DqUjBZb5Rwd0Yf0aZdPn7YKxzTH_dqEF53ETjBKuto4iFTKPfyqLASzX92IgId5q3Mf_MlmKfi4r5h-vITfKHt5rpjhjv1YPVdw2jb1HZRp17krD4ByTIQPOuoxDzC_QaWoY-QODqc-z"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-serif text-on-surface-variant font-semibold truncate">Arjun K.</h3>
+<span class="text-[10px] font-label font-bold text-on-secondary-container tracking-tighter bg-secondary-container px-2 py-0.5 rounded-full">92% MATCH</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate mt-0.5">I truly enjoyed our talk about...</p>
+<span class="text-[9px] text-outline font-label uppercase tracking-widest mt-1 block">2h ago</span>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-lg hover:bg-surface-container-high transition-all cursor-pointer">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover opacity-80" data-alt="Elegant woman in a silk dress with soft jewelry, warm golden hour interior lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKRBZ-L6kcnm9C9lU0mzl-6lU66Yy3Ht2FjI_5FcQCzgZvRo2FSiAYe5oRm9YEO7EP_OzXqWaHd6UoXZHZy1iyHjCI_tT4NzNVGqb4QIpHelCTZYUMkiNqcVc8mSh0blC-dggo97jRwYEavTAfenPEoOTzfgbb512Ngj62mr5a7NR1fh5W0XB6rW7pzL0IviJVp-PiyjuwQZhjoa226NRRuyaDVl03w2p79mYFcnMXRCQtqm3B73iSSdWS4eGOlo12p7AIuAgmkfIU"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-serif text-on-surface-variant font-semibold truncate">Meera V.</h3>
+<span class="text-[10px] font-label font-bold text-on-secondary-container tracking-tighter bg-secondary-container px-2 py-0.5 rounded-full">89% MATCH</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate mt-0.5">Let's connect this weekend if...</p>
+<span class="text-[9px] text-outline font-label uppercase tracking-widest mt-1 block">Yesterday</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Chat Window -->
+<section class="flex-1 flex flex-col bg-surface-container-lowest rounded-t-lg shadow-[0px_12px_32px_rgba(29,29,3,0.06)] relative overflow-hidden">
+<!-- Chat Header -->
+<div class="px-8 py-6 flex items-center justify-between border-b border-outline-variant/10 bg-white/50 backdrop-blur-md sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Detailed portrait of a smiling woman with intelligent eyes and a soft warm glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-i5VCo_uWvBwwFrNllRVKTYvp5v_sMADIGGV9pI3Z91-hWYS3tstfTS-faVgFqae-umviARBvcWydOQYq4UHBdCmAyPKxf7MQsXC6n48DDPwsBeWW_twLulhyvoYEnzWZ8Kkk-eftK3rkF3jp5JOgAvDpJ7HqIlcvnf5AfRVPaAXfABLqAf2r862Ce7Yxyq51Ndb9IR02MO4HohVYOIBxow09FwfpdY2zyyjL4lUHRtP_b0-_jajctoDZ24YX80-SKPW1aNQsYEy2"/>
+<div>
+<h1 class="font-serif text-xl text-primary font-bold">Ananya S.</h1>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+<span class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Active in Mumbai</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors text-primary">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors text-primary">
+<span class="material-symbols-outlined">videocam</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors text-primary">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Messages Area -->
+<div class="flex-1 overflow-y-auto p-8 space-y-8 scroll-smooth">
+<!-- Date Separator -->
+<div class="flex justify-center">
+<span class="px-4 py-1 rounded-full bg-surface-container text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant">Wednesday, 24 October</span>
+</div>
+<!-- Recipient Message -->
+<div class="flex gap-4 max-w-xl">
+<img class="w-8 h-8 rounded-full object-cover mt-2" data-alt="Recipient profile avatar small" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB559nshjorSFL1WAZzsdzcgJYOYhr-iaLQdOzpFfFV5zAldiH8c4CXGZw1Z66zLwU1sOVLJNzrELM59y6Y5H_bc-nfDqAAVlei8U-WIoyoBk5z6CQF_PUldxvtf-kcTFYf_To3IhFShJkXs-pebsfyfCTMVnZBF3hweu9XQby0KVM7jzAl8lxsdXKO6ioJdQiJZHwTOYSqtibxcpdRkNBPhPAwVKIXy7BMEqlSGNlsHtbdwuD11sbJ1AXYU58f8kwjELrvCPDw9Kn_"/>
+<div class="space-y-2">
+<div class="bg-surface-container-low text-on-surface p-5 rounded-tr-lg rounded-br-lg rounded-bl-lg shadow-sm border border-outline-variant/5">
+<p class="text-sm leading-relaxed">It was wonderful reading your perspective on intentional living in the newsletter today. It truly resonated with how I view our traditional values in a modern context.</p>
+</div>
+<span class="text-[9px] font-label uppercase tracking-widest text-outline ml-1">11:24 AM</span>
+</div>
+</div>
+<!-- Sender Message -->
+<div class="flex gap-4 max-w-xl ml-auto flex-row-reverse">
+<div class="space-y-2 text-right">
+<div class="bg-primary text-white p-5 rounded-tl-lg rounded-br-lg rounded-bl-lg shadow-md">
+<p class="text-sm leading-relaxed">I am so glad you felt that way, Ananya. I believe the essence of 'Ethereal Union' is exactly that—finding the sacred in the mundane. Have you been practicing mindfulness lately?</p>
+</div>
+<div class="flex items-center justify-end gap-1">
+<span class="text-[9px] font-label uppercase tracking-widest text-outline">11:28 AM</span>
+<span class="material-symbols-outlined text-[10px] text-primary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">done_all</span>
+</div>
+</div>
+</div>
+<!-- Recipient Message -->
+<div class="flex gap-4 max-w-xl">
+<img class="w-8 h-8 rounded-full object-cover mt-2" data-alt="Recipient profile avatar small" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAX6SAlW4_9npNDQQ6UeTQPqZqTGpzFjUl0oc3O9pJMCO-H57SnfNwIiL0zgEzyrMJb912oC-MNAQaVrEMf9f_KZzjhXeW20dvEBtNO2uOsRaXu1YOOPl09SquYMc4Vbi0iUrqs3B-f1XESw7xggJV6-SNmX18KVaflEvwmECQSNpRR8bCbhVF2QC15OiRL8AbDXxq8HqfclCsyldln4KACxnfHHEfHdDskOl_Egfxg6lhWnE6IjIAdTsRCkRxjzbMecmf80RH-99yV"/>
+<div class="space-y-2">
+<div class="bg-surface-container-low text-on-surface p-5 rounded-tr-lg rounded-br-lg rounded-bl-lg shadow-sm border border-outline-variant/5">
+<p class="text-sm leading-relaxed">Every morning at dawn. There is something truly spiritual about the silence before the city wakes up. 🌅</p>
+</div>
+<span class="text-[9px] font-label uppercase tracking-widest text-outline ml-1">11:30 AM</span>
+</div>
+</div>
+<!-- Shared Content Card (Premium UI Pattern) -->
+<div class="flex gap-4 max-w-xl ml-auto flex-row-reverse">
+<div class="space-y-2 text-right w-full">
+<div class="bg-primary-container/20 border border-primary-container/30 p-6 rounded-lg text-left">
+<span class="text-[10px] font-label font-bold text-primary uppercase tracking-widest mb-2 block">Shared from Profile</span>
+<div class="flex gap-4">
+<div class="w-16 h-16 rounded-md bg-cover bg-center" data-alt="Serene mountain landscape with mist and morning light reflecting on a lake" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDOIer-CA7lCjUj0ghP_fk1gJ6c8w7a4FXF7p24r29e2wUtxJr9eFVvyo5q295AEglcb_ZF8hTZuyz7jynJX1H6XX0hjV_hYcNIe1an4qG7TJCxP_zuvEcAxiNiOeRekuErYpN0Ija_TqJGrp-S2eBgo1eYlP9nKUZC6hSq4QHBXFZCuX09csfHs1kO2MHv8F2SkA1SgwdpuSCFjbMSl4m1ieDV2Nxm6ngEFUinwnwzC7D-zDHxFhCYRr73EK_jLP4A6M1OlT6M8LGE')"></div>
+<div>
+<h4 class="font-serif text-primary italic text-sm">Himalayan Retreat - Summer '23</h4>
+<p class="text-xs text-on-surface-variant mt-1">Thought you might appreciate this peace.</p>
+</div>
+</div>
+</div>
+<span class="text-[9px] font-label uppercase tracking-widest text-outline">11:35 AM</span>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-8 bg-surface-container-low/30 backdrop-blur-xl">
+<div class="flex items-end gap-4 bg-surface-container-lowest rounded-xl p-2 shadow-[0px_4px_16px_rgba(29,29,3,0.04)]">
+<button class="p-3 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 text-sm py-3 min-h-[44px] max-h-32 resize-none placeholder:italic" placeholder="Compose your message..." rows="1"></textarea>
+<button class="p-3 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</button>
+<button class="bg-primary text-white w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-[#fefccf] dark:bg-stone-900 shadow-[0px_-8px_24px_rgba(29,29,3,0.04)] flex justify-around items-center px-6 pb-6 pt-2">
+<div class="flex flex-col items-center justify-center text-[#524345] dark:text-stone-400 p-3 hover:bg-[#f8f6c9] dark:hover:bg-stone-800 rounded-full">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-sans text-[11px] font-bold tracking-wider uppercase mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#524345] dark:text-stone-400 p-3 hover:bg-[#f8f6c9] dark:hover:bg-stone-800 rounded-full">
+<span class="material-symbols-outlined">search</span>
+<span class="font-sans text-[11px] font-bold tracking-wider uppercase mt-1">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#a6606b] text-white rounded-full p-3 shadow-lg scale-110 -translate-y-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-sans text-[11px] font-bold tracking-wider uppercase mt-1">Inbox</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#524345] dark:text-stone-400 p-3 hover:bg-[#f8f6c9] dark:hover:bg-stone-800 rounded-full">
+<span class="material-symbols-outlined">person</span>
+<span class="font-sans text-[11px] font-bold tracking-wider uppercase mt-1">Profile</span>
+</div>
+</nav>
+</body></html>

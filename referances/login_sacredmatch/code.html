@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SacredMatch | Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#eceabe",
+                        "surface-tint": "#8c4b55",
+                        "secondary": "#74593f",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#d14131",
+                        "on-surface-variant": "#524345",
+                        "tertiary": "#ae281b",
+                        "secondary-fixed": "#ffdcbe",
+                        "on-tertiary-container": "#fffbff",
+                        "surface-container-highest": "#e6e5b9",
+                        "on-background": "#1d1d03",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f8f6c9",
+                        "primary": "#8a4853",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#dedcb1",
+                        "surface-bright": "#fefccf",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#857374",
+                        "inverse-surface": "#323214",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e6e5b9",
+                        "surface": "#fefccf",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#f5f3c7",
+                        "primary-fixed-dim": "#ffb2bc",
+                        "on-primary-fixed": "#3a0915",
+                        "on-secondary-fixed-variant": "#5a422a",
+                        "on-tertiary-fixed-variant": "#8f0f07",
+                        "on-primary-fixed-variant": "#70343e",
+                        "secondary-fixed-dim": "#e3c0a0",
+                        "background": "#fefccf",
+                        "primary-fixed": "#ffd9dd",
+                        "tertiary-fixed": "#ffdad4",
+                        "on-secondary-fixed": "#2a1704",
+                        "on-secondary-container": "#795d43",
+                        "inverse-primary": "#ffb2bc",
+                        "surface-container": "#f2f0c4",
+                        "on-tertiary-fixed": "#410000",
+                        "primary-container": "#a6606b",
+                        "outline-variant": "#d7c1c3",
+                        "on-surface": "#1d1d03",
+                        "secondary-container": "#fed9b8",
+                        "on-primary-container": "#fffbff",
+                        "tertiary-fixed-dim": "#ffb4a8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #fefccf;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Noto Serif', serif;
+        }
+        .signature-gradient {
+            background: linear-gradient(45deg, #8a4853, #a6606b);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-[0px_12px_32px_rgba(29,29,3,0.06)]">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="font-['Noto_Serif'] text-2xl font-bold tracking-tighter text-[#8a4853]">SacredMatch</div>
+<div class="hidden md:flex items-center gap-8 font-['Noto_Serif'] text-lg tracking-tight">
+<a class="text-stone-600 hover:text-[#8a4853] transition-colors" href="#">Home</a>
+<a class="text-stone-600 hover:text-[#8a4853] transition-colors" href="#">Search Profiles</a>
+<a class="text-stone-600 hover:text-[#8a4853] transition-colors" href="#">Success Stories</a>
+<a class="text-stone-600 hover:text-[#8a4853] transition-colors" href="#">About Us</a>
+<a class="text-stone-600 hover:text-[#8a4853] transition-colors" href="#">Contact</a>
+</div>
+<div class="flex items-center gap-6">
+<a class="text-[#8a4853] border-b-2 border-[#8a4853] pb-1 font-['Noto_Serif'] text-lg tracking-tight active:scale-95 transition-transform" href="#">Login</a>
+<a class="signature-gradient text-on-primary px-8 py-3 rounded-full font-bold hover:opacity-80 transition-all duration-300 active:scale-95 transition-transform shadow-md" href="#">Register</a>
+</div>
+</div>
+</nav>
+<!-- Main Content: Login Shell -->
+<main class="flex-grow flex items-center justify-center pt-24 pb-12 px-6 relative overflow-hidden">
+<!-- Abstract Background Decorative Elements -->
+<div class="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-3xl"></div>
+<div class="absolute bottom-[-5%] right-[-5%] w-[30vw] h-[30vw] bg-secondary/5 rounded-full blur-3xl"></div>
+<div class="w-full max-w-md relative z-10">
+<!-- Login Card -->
+<div class="bg-surface-container-lowest rounded-lg p-10 md:p-12 shadow-[0px_12px_32px_rgba(29,29,3,0.06)] border border-outline-variant/10">
+<div class="text-center mb-10">
+<h1 class="text-3xl font-headline text-primary mb-3">Welcome Back</h1>
+<p class="text-on-surface-variant font-body">Continue your journey to finding your soul's reflection.</p>
+</div>
+<form class="space-y-8">
+<!-- Email Field -->
+<div class="group">
+<label class="block text-xs font-label uppercase tracking-wider text-stone-500 mb-1 group-focus-within:text-primary transition-colors" for="email">Email Address</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-stone-200 py-3 px-0 focus:ring-0 focus:border-primary transition-all text-on-surface placeholder:text-stone-300" id="email" name="email" placeholder="name@example.com" type="email"/>
+</div>
+<!-- Password Field -->
+<div class="group">
+<div class="flex justify-between items-end mb-1">
+<label class="block text-xs font-label uppercase tracking-wider text-stone-500 group-focus-within:text-primary transition-colors" for="password">Password</label>
+<a class="text-xs font-label text-stone-400 hover:text-primary transition-colors" href="#">Forgot Password?</a>
+</div>
+<input class="w-full bg-transparent border-0 border-b-2 border-stone-200 py-3 px-0 focus:ring-0 focus:border-primary transition-all text-on-surface placeholder:text-stone-300" id="password" name="password" placeholder="••••••••" type="password"/>
+</div>
+<!-- Login Button -->
+<button class="w-full signature-gradient text-on-primary py-4 rounded-full font-bold text-lg hover:opacity-90 active:scale-[0.98] transition-all duration-300 shadow-lg shadow-primary/20 flex justify-center items-center gap-2 group" type="submit">
+<span>Sign In</span>
+<span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<!-- Footer of Login Card -->
+<div class="mt-10 text-center">
+<p class="text-sm font-body text-stone-500">
+                        Don't have an account yet? 
+                        <a class="text-primary font-bold hover:underline decoration-primary/30 underline-offset-4 ml-1" href="#">Create an account</a>
+</p>
+</div>
+</div>
+<!-- Asymmetric Decoration -->
+<div class="mt-8 flex justify-center gap-4 opacity-40">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+<div class="w-2 h-2 rounded-full bg-primary-container/60"></div>
+<div class="w-2 h-2 rounded-full bg-primary-container/30"></div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-[#f8f6c9] pt-16 pb-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-12 max-w-7xl mx-auto border-t border-[#d7c1c3]/15">
+<div class="flex flex-col gap-4">
+<div class="font-['Noto_Serif'] text-xl italic text-[#8a4853]">SacredMatch</div>
+<p class="text-stone-500 font-body text-sm leading-relaxed">
+                    Connecting souls through values, heritage, and the shared dream of a meaningful union.
+                </p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-['Manrope'] text-sm uppercase tracking-wider text-[#1d1d03] font-bold">Navigation</h4>
+<nav class="flex flex-col gap-2">
+<a class="text-stone-500 text-sm hover:text-[#8a4853] transition-colors" href="#">Success Stories</a>
+<a class="text-stone-500 text-sm hover:text-[#8a4853] transition-colors" href="#">Search Profiles</a>
+<a class="text-stone-500 text-sm hover:text-[#8a4853] transition-colors" href="#">About Our Process</a>
+</nav>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-['Manrope'] text-sm uppercase tracking-wider text-[#1d1d03] font-bold">Support</h4>
+<nav class="flex flex-col gap-2">
+<a class="text-stone-500 text-sm hover:text-[#8a4853] transition-colors" href="#">Contact Info</a>
+<a class="text-stone-500 text-sm hover:text-[#8a4853] transition-colors" href="#">Social Links</a>
+<a class="text-stone-500 text-sm hover:text-[#8a4853] transition-colors" href="#">FAQs</a>
+</nav>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-['Manrope'] text-sm uppercase tracking-wider text-[#1d1d03] font-bold">Legal</h4>
+<nav class="flex flex-col gap-2">
+<a class="text-stone-500 text-sm hover:text-[#8a4853] transition-colors" href="#">Privacy Policy</a>
+<a class="text-stone-500 text-sm hover:text-[#8a4853] transition-colors" href="#">Terms of Service</a>
+</nav>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-12 mt-16 text-center">
+<p class="text-stone-400 font-['Manrope'] text-xs uppercase tracking-widest">© 2024 SacredMatch. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

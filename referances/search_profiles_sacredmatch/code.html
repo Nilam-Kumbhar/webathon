@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#eceabe",
+                    "surface-tint": "#8c4b55",
+                    "secondary": "#74593f",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#d14131",
+                    "on-surface-variant": "#524345",
+                    "tertiary": "#ae281b",
+                    "secondary-fixed": "#ffdcbe",
+                    "on-tertiary-container": "#fffbff",
+                    "surface-container-highest": "#e6e5b9",
+                    "on-background": "#1d1d03",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f8f6c9",
+                    "primary": "#8a4853",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#dedcb1",
+                    "surface-bright": "#fefccf",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#857374",
+                    "inverse-surface": "#323214",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e6e5b9",
+                    "surface": "#fefccf",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#f5f3c7",
+                    "primary-fixed-dim": "#ffb2bc",
+                    "on-primary-fixed": "#3a0915",
+                    "on-secondary-fixed-variant": "#5a422a",
+                    "on-tertiary-fixed-variant": "#8f0f07",
+                    "on-primary-fixed-variant": "#70343e",
+                    "secondary-fixed-dim": "#e3c0a0",
+                    "background": "#fefccf",
+                    "primary-fixed": "#ffd9dd",
+                    "tertiary-fixed": "#ffdad4",
+                    "on-secondary-fixed": "#2a1704",
+                    "on-secondary-container": "#795d43",
+                    "inverse-primary": "#ffb2bc",
+                    "surface-container": "#f2f0c4",
+                    "on-tertiary-fixed": "#410000",
+                    "primary-container": "#a6606b",
+                    "outline-variant": "#d7c1c3",
+                    "on-surface": "#1d1d03",
+                    "secondary-container": "#fed9b8",
+                    "on-primary-container": "#fffbff",
+                    "tertiary-fixed-dim": "#ffb4a8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fefccf;
+            color: #1d1d03;
+            font-family: 'Manrope', sans-serif;
+        }
+        .editorial-shadow {
+            box-shadow: 0px 12px 32px rgba(29, 29, 3, 0.06);
+        }
+        .signature-gradient {
+            background: linear-gradient(45deg, #8a4853, #a6606b);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-[0px_12px_32px_rgba(29,29,3,0.06)]">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="font-['Noto_Serif'] text-2xl font-bold tracking-tighter text-[#8a4853]">SacredMatch</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 hover:text-[#8a4853] transition-colors" href="#">Home</a>
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-[#8a4853] border-b-2 border-[#8a4853] pb-1" href="#">Search Profiles</a>
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 hover:text-[#8a4853] transition-colors" href="#">Success Stories</a>
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 hover:text-[#8a4853] transition-colors" href="#">About Us</a>
+<a class="font-['Noto_Serif'] text-lg tracking-tight text-stone-600 hover:text-[#8a4853] transition-colors" href="#">Contact</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-[#8a4853] font-medium px-4 py-2 active:scale-95 transition-transform">Login</button>
+<button class="signature-gradient text-white px-8 py-3 rounded-full font-semibold active:scale-95 transition-transform editorial-shadow">Register</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-8 max-w-7xl mx-auto">
+<header class="mb-16">
+<h1 class="font-headline text-5xl md:text-6xl font-bold tracking-tighter mb-4 text-primary italic">Find Your Soul's Reflection</h1>
+<p class="font-body text-lg text-on-surface-variant max-w-2xl">Discover intentional connections through our curated selection of high-achieving, spiritual individuals seeking meaningful union.</p>
+</header>
+<div class="flex flex-col lg:flex-row gap-12">
+<!-- Filter Sidebar -->
+<aside class="w-full lg:w-80 shrink-0">
+<div class="bg-surface-container-low rounded-lg p-8 sticky top-32 space-y-10">
+<div class="flex items-center justify-between mb-2">
+<h2 class="font-headline text-xl font-bold">Refine Search</h2>
+<span class="material-symbols-outlined text-primary" data-icon="tune">tune</span>
+</div>
+<!-- Age Range -->
+<div class="space-y-4">
+<label class="font-label text-xs uppercase tracking-wider font-bold text-on-surface-variant block">Age Range</label>
+<div class="relative h-1 bg-surface-container-high rounded-full">
+<div class="absolute h-full signature-gradient rounded-full left-1/4 right-1/4"></div>
+<div class="absolute -top-1.5 left-1/4 w-4 h-4 bg-white border-2 border-primary rounded-full cursor-pointer"></div>
+<div class="absolute -top-1.5 right-1/4 w-4 h-4 bg-white border-2 border-primary rounded-full cursor-pointer"></div>
+</div>
+<div class="flex justify-between text-sm font-medium">
+<span>24 years</span>
+<span>38 years</span>
+</div>
+</div>
+<!-- Religion -->
+<div class="space-y-4">
+<label class="font-label text-xs uppercase tracking-wider font-bold text-on-surface-variant block">Spiritual Path</label>
+<div class="relative group">
+<select class="w-full bg-transparent border-b-2 border-outline-variant/30 py-2 focus:border-primary outline-none appearance-none transition-colors">
+<option>All Faiths</option>
+<option>Hinduism</option>
+<option>Sikhism</option>
+<option>Jainism</option>
+<option>Buddhism</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 bottom-2 pointer-events-none text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Location -->
+<div class="space-y-4">
+<label class="font-label text-xs uppercase tracking-wider font-bold text-on-surface-variant block">Location</label>
+<div class="relative group">
+<input class="w-full bg-transparent border-b-2 border-outline-variant/30 py-2 focus:border-primary outline-none transition-colors placeholder:text-on-surface-variant/50" placeholder="City or Region" type="text"/>
+<span class="material-symbols-outlined absolute right-0 bottom-2 text-on-surface-variant" data-icon="location_on">location_on</span>
+</div>
+</div>
+<!-- Education -->
+<div class="space-y-4">
+<label class="font-label text-xs uppercase tracking-wider font-bold text-on-surface-variant block">Academic Background</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 bg-surface-container-highest rounded-sm font-label text-xs uppercase tracking-wider text-primary font-bold">Doctorate</button>
+<button class="px-4 py-2 bg-white rounded-sm font-label text-xs uppercase tracking-wider text-stone-500">Masters</button>
+<button class="px-4 py-2 bg-white rounded-sm font-label text-xs uppercase tracking-wider text-stone-500">Engineering</button>
+</div>
+</div>
+<button class="w-full signature-gradient text-white py-4 rounded-full font-bold editorial-shadow active:scale-95 transition-transform mt-4">Update Discovery</button>
+</div>
+</aside>
+<!-- Profile Grid -->
+<div class="flex-1">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+<!-- Profile Card 1 -->
+<div class="group relative bg-surface-container-lowest rounded-lg overflow-hidden editorial-shadow hover:translate-y-[-8px] transition-all duration-500">
+<div class="h-80 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Close-up portrait of a graceful Indian woman with traditional gold jewelry in soft warm natural sunset lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkxvkEziXHy7oT_ZjxSijHtzud5NBl9ypn0LnM2mYufSPP71SJuhRxFB3UHNpAzfv4v_0wEFQAn_ZiU9Kel4at79Rg4lA42rApBOxvTlr9sOVlJVEuLQht9_7EhZc_Rlyjiz5Zt4q5F_6H_64cJ82St_ZlYVfAsDTWAUlolw6AcoU1GgefS4PkTxVrWP6rLSAHWmrs5uDwP99ouVIPXoipCU8BXZNL1NWZKInrNyPInoOoIZaY5_O2q9OC8JUSH860eqxxRRgL_5od"/>
+<div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-white text-sm" data-icon="favorite" data-weight="fill" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<div class="p-8">
+<h3 class="font-headline text-2xl font-bold mb-1">Ananya Sharma, 28</h3>
+<p class="font-label text-xs uppercase tracking-widest text-primary font-bold mb-4">Interior Architect • Mumbai</p>
+<p class="font-body text-on-surface-variant line-clamp-2 mb-6">Seeking a partner who values tradition while embracing modern creativity. Love morning chai and classic literature.</p>
+<button class="w-full border border-outline-variant/30 py-3 rounded-full font-label text-xs uppercase tracking-widest font-bold hover:bg-surface-container-low transition-colors">View Profile</button>
+</div>
+</div>
+<!-- Profile Card 2 -->
+<div class="group relative bg-surface-container-lowest rounded-lg overflow-hidden editorial-shadow hover:translate-y-[-8px] transition-all duration-500">
+<div class="h-80 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Portrait of a sophisticated Indian man in a linen shirt standing in a sun-drenched courtyard with architectural shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrQ7wtljTzPibAHlJT9CDR4K4ynZqpjzShQSFRzAat2l-s5DA3ao8TbpUlRGTh6qq8Hsd0Acw9KA5vQQYPB2p4vurQh0MWKkvB9lqFVXwgEvbz3wdfkgZjcXDvAJMHGq1wRSMo68uJj-i0kNn9tUCvbQGls2Gc9gjL34JpWTmQ_46bsUvrxUf1ZRNR4ZI_go4XaGWoDqRD_s6lCT1OaoDoWPyYHWpsn5DM3BJloNV9h6iT5KMKn99iC2hf5iNmoZTvAqUizPBT59uJ"/>
+</div>
+<div class="p-8">
+<h3 class="font-headline text-2xl font-bold mb-1">Arjun Varma, 31</h3>
+<p class="font-label text-xs uppercase tracking-widest text-primary font-bold mb-4">Neurosurgeon • Bangalore</p>
+<p class="font-body text-on-surface-variant line-clamp-2 mb-6">Passionate about wellness and mountain trekking. Looking for a compassionate soul to share life's quiet moments.</p>
+<button class="w-full border border-outline-variant/30 py-3 rounded-full font-label text-xs uppercase tracking-widest font-bold hover:bg-surface-container-low transition-colors">View Profile</button>
+</div>
+</div>
+<!-- Profile Card 3 -->
+<div class="group relative bg-surface-container-lowest rounded-lg overflow-hidden editorial-shadow hover:translate-y-[-8px] transition-all duration-500">
+<div class="h-80 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Stylish Indian woman in high-end ethnic wear posing in a minimalist art gallery with soft directional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdEwCojp6RzFSnfOpaRtk-hjesn9AGsGEU5uu_dAJiVrd9LepJgmW13s-l5i1WARvyp-XhtLEtNOJs-Vs44jNxf6jJ80TSTG4eRfykVJ2Hz1OsbrRtLihugYFL6lgzEb47zU0lTBDNAqd0K_IahNSwG4NthmFMd6DHWiubtGGYC1O6WbRBB-8IBHGzLznp6rv8P6SI7kQp45yVPv5yQjzb3lyvNYC9ul7DmdPwsbrMdvqmnJofzaW4CkBNqtLvCaI7Ley_Eygkqmz4"/>
+</div>
+<div class="p-8">
+<h3 class="font-headline text-2xl font-bold mb-1">Riya Kapoor, 26</h3>
+<p class="font-label text-xs uppercase tracking-widest text-primary font-bold mb-4">Financial Analyst • Delhi</p>
+<p class="font-body text-on-surface-variant line-clamp-2 mb-6">A blend of analytical thinking and artistic spirit. Devotee of classical dance and sustainable living.</p>
+<button class="w-full border border-outline-variant/30 py-3 rounded-full font-label text-xs uppercase tracking-widest font-bold hover:bg-surface-container-low transition-colors">View Profile</button>
+</div>
+</div>
+<!-- Profile Card 4 -->
+<div class="group relative bg-surface-container-lowest rounded-lg overflow-hidden editorial-shadow hover:translate-y-[-8px] transition-all duration-500">
+<div class="h-80 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Confident Indian man in formal wear smiling in a luxury hotel lobby with warm ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkY6KmHVTqkplt7AyyfeKKzHfHgiyH1iXyoALhQfVkRYpyOGau5AaikMwxY0qtMJnnMDd5Yj8uLzrhvPSSllgdh1KTHLQex1B6FqlNrLJwZQ9Rjdc6iqTahv0Zri29SELK3NjtGEmGH0I31NioIHlZrer1To6aCwQyZN8Yvq96EIQ0g-Ye8q4tPcVMPfa8WIi1y-QpSwTXiotbRkg0icILgr_qXed5FOyUfH1M2_PGoPqg19SbXg3XGgey15-jD-oaYg2ONEZhIPUR"/>
+</div>
+<div class="p-8">
+<h3 class="font-headline text-2xl font-bold mb-1">Ishaan Mehta, 33</h3>
+<p class="font-label text-xs uppercase tracking-widest text-primary font-bold mb-4">Tech Entrepreneur • Hyderabad</p>
+<p class="font-body text-on-surface-variant line-clamp-2 mb-6">Building future-ready solutions by day, exploring ancient temples by weekend. Seeking a life-long explorer.</p>
+<button class="w-full border border-outline-variant/30 py-3 rounded-full font-label text-xs uppercase tracking-widest font-bold hover:bg-surface-container-low transition-colors">View Profile</button>
+</div>
+</div>
+<!-- Profile Card 5 -->
+<div class="group relative bg-surface-container-lowest rounded-lg overflow-hidden editorial-shadow hover:translate-y-[-8px] transition-all duration-500">
+<div class="h-80 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Portrait of a young Indian woman with deep eyes sitting in a botanical garden with dappled sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVvrwNfc1TQTbib6dJmbYwbme5L_jJ5d93SOtLfR19x3grHL0i0zjFmev3MwjSN77bpJpPMjTr3CxmmvKrPdAwvhc7SjypnWkOfUPodi2iblktDqwtq9EwUqOadqab2LQr0RJzMilIwvZ2g8VM9T_Q1N3DeuTlTGxCcoS4DEwVpHv6_56yVdq9VvBOvAd1muQ-dJUgug829hsOokOJLrZjKur-xAASSgDCFtSwx8IF3MqGUzdmh_MjtPiKWcTZaLHwqZHIhWQi5avn"/>
+</div>
+<div class="p-8">
+<h3 class="font-headline text-2xl font-bold mb-1">Meera Iyer, 29</h3>
+<p class="font-label text-xs uppercase tracking-widest text-primary font-bold mb-4">Yoga Therapist • Rishikesh</p>
+<p class="font-body text-on-surface-variant line-clamp-2 mb-6">Living a life of mindfulness and gratitude. Looking for a partner grounded in spiritual values.</p>
+<button class="w-full border border-outline-variant/30 py-3 rounded-full font-label text-xs uppercase tracking-widest font-bold hover:bg-surface-container-low transition-colors">View Profile</button>
+</div>
+</div>
+<!-- Profile Card 6 -->
+<div class="group relative bg-surface-container-lowest rounded-lg overflow-hidden editorial-shadow hover:translate-y-[-8px] transition-all duration-500">
+<div class="h-80 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Close-up of an Indian man with a kind smile and sharp features in soft light against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKYjWSaW4TJ1nPYwjMaHxHEfOd-87NOLdHx3w0NoAipNye1fsEj6O289wRQEWFX8GPGq8XA2cNsI6Xo9Bh4NenciC_tjpMhUZYfTiZiEHcknh50Mcpk9XjMh5g8iGsaM7y3Gg1l-lh_DT8yJ8FyV-Nc-1IZ8w4DvMIYp6gmwQDQ8_QCS6Mk76iDc5ttB6ramRyzjYBGsDOBDGnYCwxTREg3RW2DbkB8XRiNYlzTrY9twPUPz8SLNEQY9s12k3mam9ubLpdK52tSRKU"/>
+</div>
+<div class="p-8">
+<h3 class="font-headline text-2xl font-bold mb-1">Kabir Singh, 30</h3>
+<p class="font-label text-xs uppercase tracking-widest text-primary font-bold mb-4">Creative Director • Pune</p>
+<p class="font-body text-on-surface-variant line-clamp-2 mb-6">Passionate storyteller and visual artist. Seeking someone to co-write our beautiful next chapter.</p>
+<button class="w-full border border-outline-variant/30 py-3 rounded-full font-label text-xs uppercase tracking-widest font-bold hover:bg-surface-container-low transition-colors">View Profile</button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-20 flex justify-center items-center space-x-2">
+<button class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant/30 text-stone-500 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full signature-gradient text-white font-bold editorial-shadow">1</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full text-stone-600 hover:bg-surface-container-low transition-colors font-medium">2</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full text-stone-600 hover:bg-surface-container-low transition-colors font-medium">3</button>
+<span class="px-2 text-stone-400">...</span>
+<button class="w-12 h-12 flex items-center justify-center rounded-full text-stone-600 hover:bg-surface-container-low transition-colors font-medium">12</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant/30 text-stone-500 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full pt-16 pb-8 bg-[#f8f6c9]">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-12 max-w-7xl mx-auto border-t border-[#d7c1c3]/15 pt-16">
+<div class="space-y-6">
+<div class="font-['Noto_Serif'] text-xl italic text-[#8a4853]">SacredMatch</div>
+<p class="font-body text-stone-500 text-sm normal-case">Curating divine unions since 2024. Our mission is to foster connections built on shared values and spiritual depth.</p>
+</div>
+<div>
+<h4 class="font-['Manrope'] text-sm uppercase tracking-wider font-bold mb-6">Contact Info</h4>
+<ul class="space-y-4 font-['Manrope'] text-sm text-stone-500">
+<li class="hover:text-[#8a4853] transition-colors cursor-pointer">Support Center</li>
+<li class="hover:text-[#8a4853] transition-colors cursor-pointer">Email Us</li>
+<li class="hover:text-[#8a4853] transition-colors cursor-pointer">Schedule a Call</li>
+</ul>
+</div>
+<div>
+<h4 class="font-['Manrope'] text-sm uppercase tracking-wider font-bold mb-6">Social Links</h4>
+<ul class="space-y-4 font-['Manrope'] text-sm text-stone-500">
+<li class="hover:text-[#8a4853] transition-colors cursor-pointer">Instagram</li>
+<li class="hover:text-[#8a4853] transition-colors cursor-pointer">Facebook</li>
+<li class="hover:text-[#8a4853] transition-colors cursor-pointer">LinkedIn</li>
+</ul>
+</div>
+<div>
+<h4 class="font-['Manrope'] text-sm uppercase tracking-wider font-bold mb-6">Legal</h4>
+<ul class="space-y-4 font-['Manrope'] text-sm text-stone-500">
+<li class="hover:text-[#8a4853] transition-colors cursor-pointer">Privacy Policy</li>
+<li class="hover:text-[#8a4853] transition-colors cursor-pointer">Terms of Service</li>
+</ul>
+</div>
+</div>
+<div class="mt-16 text-center border-t border-[#d7c1c3]/15 pt-8">
+<p class="font-['Manrope'] text-xs uppercase tracking-widest text-stone-400">© 2024 SacredMatch. All rights reserved.</p>
+</div>
+</footer>
+</body></html>
