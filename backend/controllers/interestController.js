@@ -87,7 +87,15 @@ export const respondToInterest = async (req, res, next) => {
     interest.status = action === 'accept' ? 'accepted' : 'rejected';
     await interest.save();
 
-    const isMutual = action === 'accept';
+    let isMutual = false;
+    if (action === 'accept') {
+      const reverseAccepted = await Interest.findOne({
+        sender: userId,
+        receiver: interest.sender,
+        status: 'accepted',
+      }).lean();
+      isMutual = Boolean(reverseAccepted);
+    }
 
     return res.json({
       success: true,
@@ -138,7 +146,8 @@ export const getMutualMatches = async (req, res, next) => {
   try {
     const userId = req.user._id;
 
-    // Find all accepted interests where current user is involved
+    // Find accepted interests where current user is involved.
+    // Keep only pairs where reverse direction is also accepted.
     const accepted = await Interest.find({
       $or: [
         { sender: userId, status: 'accepted' },
@@ -150,18 +159,40 @@ export const getMutualMatches = async (req, res, next) => {
       .sort({ updatedAt: -1 })
       .lean();
 
-    // Extract the "other" person from each match
-    const matches = accepted.map((interest) => {
-      const otherUser =
-        interest.sender._id.toString() === userId.toString()
-          ? interest.receiver
-          : interest.sender;
-      return {
-        interestId: interest._id,
-        user: otherUser,
-        matchedAt: interest.updatedAt,
-      };
-    });
+    const userIdStr = userId.toString();
+    const matches = [];
+    const seenUsers = new Set();
+
+    for (const interest of accepted) {
+      const senderId = interest.sender._id.toString();
+      const receiverId = interest.receiver._id.toString();
+      const otherUser = senderId === userIdStr ? interest.receiver : interest.sender;
+      const otherUserId = otherUser._id.toString();
+
+      if (seenUsers.has(otherUserId)) {
+        continue;
+      }
+
+      const reverseInterest = await Interest.findOne({
+        sender: receiverId,
+        receiver: senderId,
+        status: 'accepted',
+      })
+        .sort({ updatedAt: -1 })
+        .lean();
+
+      if (reverseInterest) {
+        seenUsers.add(otherUserId);
+        matches.push({
+          interestId: interest._id,
+          user: otherUser,
+          matchedAt:
+            reverseInterest.updatedAt > interest.updatedAt
+              ? reverseInterest.updatedAt
+              : interest.updatedAt,
+        });
+      }
+    }
 
     return res.json({ success: true, count: matches.length, data: matches });
   } catch (error) {
