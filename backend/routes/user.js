@@ -1,34 +1,16 @@
 import express from 'express';
 import cloudinary from '../config/cloudinary.js';
-import User from '../models/User.js';
+import { findUserById, updateUser } from '../models/User.js';
 import { protect } from '../middleware/authMiddleware.js';
 import { uploadProfilePic } from '../middleware/upload.js';
 
 const router = express.Router();
 
 const allowedUpdateFields = [
-  'name',
-  'age',
-  'gender',
-  'dateOfBirth',
-  'city',
-  'state',
-  'country',
-  'education',
-  'occupation',
-  'job',
-  'salary',
-  'religion',
-  'caste',
-  'bio',
-  'interests',
-  'preferredAgeMin',
-  'preferredAgeMax',
-  'preferredCity',
-  'preferredEducation',
-  'preferredJob',
-  'preferredReligion',
-  'preferredCaste',
+  'name', 'age', 'gender', 'dateOfBirth', 'city', 'state', 'country',
+  'education', 'occupation', 'job', 'salary', 'religion', 'caste', 'bio',
+  'interests', 'preferredAgeMin', 'preferredAgeMax', 'preferredCity',
+  'preferredEducation', 'preferredJob', 'preferredReligion', 'preferredCaste',
   'lifestylePreferences',
 ];
 
@@ -53,10 +35,7 @@ router.put('/update', protect, async (req, res) => {
       return res.status(400).json({ message: 'No valid fields to update.' });
     }
 
-    const user = await User.findByIdAndUpdate(req.user._id, { $set: updates }, { new: true, runValidators: true }).select(
-      '-password'
-    );
-
+    const user = updateUser(req.user._id, updates);
     return res.status(200).json({ message: 'Profile updated.', user });
   } catch (error) {
     return res.status(500).json({ message: 'Could not update profile.', error: error.message });
@@ -65,54 +44,65 @@ router.put('/update', protect, async (req, res) => {
 
 router.get('/preferences', protect, async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).select(
-      'partnerPreferences preferredAgeMin preferredAgeMax preferredCity preferredEducation preferredJob preferredReligion preferredCaste lifestylePreferences'
-    );
-
+    const user = findUserById(req.user._id);
     return res.status(200).json({
       preferences:
-        user.partnerPreferences || {
-          ageRange: { min: user.preferredAgeMin || 18, max: user.preferredAgeMax || 60 },
-          location: { city: user.preferredCity || '' },
-          education: user.preferredEducation || '',
-          job: user.preferredJob || '',
-          religion: user.preferredReligion || '',
-          caste: user.preferredCaste || '',
-          lifestyle: user.lifestylePreferences || [],
-        },
+        user.partnerPreferences && Object.keys(user.partnerPreferences).length > 0
+          ? user.partnerPreferences
+          : {
+              ageRange: {
+                min: user.preferredAgeMin || 18,
+                max: user.preferredAgeMax || 60,
+              },
+              location: { city: user.preferredCity || '' },
+              education: user.preferredEducation || '',
+              job: user.preferredJob || '',
+              religion: user.preferredReligion || '',
+              caste: user.preferredCaste || '',
+              lifestyle: user.lifestylePreferences || [],
+            },
     });
   } catch (error) {
-    return res.status(500).json({ message: 'Could not fetch preferences.', error: error.message });
+    return res.status(500).json({
+      message: 'Could not fetch preferences.', error: error.message,
+    });
   }
 });
 
 router.put('/preferences', protect, async (req, res) => {
   try {
     const { ageRange, location, education, job, religion, caste, lifestyle } = req.body;
+    const currentUser = req.user;
 
     const min = ageRange?.min;
     const max = ageRange?.max;
     if ((min !== undefined || max !== undefined) && Number(min) > Number(max)) {
-      return res.status(400).json({ message: 'Invalid age range: min age cannot be greater than max age.' });
+      return res.status(400).json({
+        message: 'Invalid age range: min age cannot be greater than max age.',
+      });
     }
 
     const partnerPreferences = {
       ageRange: {
-        min: min !== undefined ? Number(min) : req.user.partnerPreferences?.ageRange?.min ?? req.user.preferredAgeMin ?? 18,
-        max: max !== undefined ? Number(max) : req.user.partnerPreferences?.ageRange?.max ?? req.user.preferredAgeMax ?? 60,
+        min: min !== undefined ? Number(min)
+          : currentUser.partnerPreferences?.ageRange?.min ?? currentUser.preferredAgeMin ?? 18,
+        max: max !== undefined ? Number(max)
+          : currentUser.partnerPreferences?.ageRange?.max ?? currentUser.preferredAgeMax ?? 60,
       },
       location: {
-        city: location?.city ?? req.user.partnerPreferences?.location?.city ?? req.user.preferredCity ?? '',
-        state: location?.state ?? req.user.partnerPreferences?.location?.state ?? '',
-        country: location?.country ?? req.user.partnerPreferences?.location?.country ?? '',
+        city: location?.city ?? currentUser.partnerPreferences?.location?.city
+          ?? currentUser.preferredCity ?? '',
+        state: location?.state ?? currentUser.partnerPreferences?.location?.state ?? '',
+        country: location?.country ?? currentUser.partnerPreferences?.location?.country ?? '',
       },
-      education: education ?? req.user.partnerPreferences?.education ?? req.user.preferredEducation ?? '',
-      job: job ?? req.user.partnerPreferences?.job ?? req.user.preferredJob ?? '',
-      religion: religion ?? req.user.partnerPreferences?.religion ?? req.user.preferredReligion ?? '',
-      caste: caste ?? req.user.partnerPreferences?.caste ?? req.user.preferredCaste ?? '',
-      lifestyle: Array.isArray(lifestyle)
-        ? lifestyle
-        : req.user.partnerPreferences?.lifestyle ?? req.user.lifestylePreferences ?? [],
+      education: education ?? currentUser.partnerPreferences?.education
+        ?? currentUser.preferredEducation ?? '',
+      job: job ?? currentUser.partnerPreferences?.job ?? currentUser.preferredJob ?? '',
+      religion: religion ?? currentUser.partnerPreferences?.religion
+        ?? currentUser.preferredReligion ?? '',
+      caste: caste ?? currentUser.partnerPreferences?.caste ?? currentUser.preferredCaste ?? '',
+      lifestyle: Array.isArray(lifestyle) ? lifestyle
+        : currentUser.partnerPreferences?.lifestyle ?? currentUser.lifestylePreferences ?? [],
     };
 
     const updates = {
@@ -127,17 +117,16 @@ router.put('/preferences', protect, async (req, res) => {
       lifestylePreferences: partnerPreferences.lifestyle,
     };
 
-    const user = await User.findByIdAndUpdate(req.user._id, { $set: updates }, { new: true, runValidators: true }).select(
-      '-password'
-    );
-
+    const user = updateUser(req.user._id, updates);
     return res.status(200).json({
       message: 'Partner preferences updated successfully.',
       preferences: user.partnerPreferences,
       user,
     });
   } catch (error) {
-    return res.status(500).json({ message: 'Could not update preferences.', error: error.message });
+    return res.status(500).json({
+      message: 'Could not update preferences.', error: error.message,
+    });
   }
 });
 
@@ -158,7 +147,9 @@ router.post('/upload-profile-pic', protect, (req, res, next) => {
       !process.env.CLOUDINARY_API_KEY ||
       !process.env.CLOUDINARY_API_SECRET
     ) {
-      return res.status(500).json({ message: 'Image upload is not configured. Set Cloudinary environment variables.' });
+      return res.status(500).json({
+        message: 'Image upload is not configured. Set Cloudinary environment variables.',
+      });
     }
 
     if (!req.file) {
@@ -166,17 +157,12 @@ router.post('/upload-profile-pic', protect, (req, res, next) => {
     }
 
     const dataUri = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
-
     const result = await cloudinary.uploader.upload(dataUri, {
       folder: 'marriage-bureau/profiles',
       resource_type: 'image',
     });
 
-    const user = await User.findByIdAndUpdate(
-      req.user._id,
-      { profilePic: result.secure_url },
-      { new: true }
-    ).select('-password');
+    const user = updateUser(req.user._id, { profilePic: result.secure_url });
 
     return res.status(200).json({
       message: 'Profile picture updated.',
@@ -184,7 +170,9 @@ router.post('/upload-profile-pic', protect, (req, res, next) => {
       user,
     });
   } catch (error) {
-    return res.status(500).json({ message: 'Could not upload profile picture.', error: error.message });
+    return res.status(500).json({
+      message: 'Could not upload profile picture.', error: error.message,
+    });
   }
 });
 

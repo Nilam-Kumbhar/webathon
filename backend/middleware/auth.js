@@ -1,13 +1,8 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/User.js';
+import { findUserById } from '../models/User.js';
 
 /**
  * JWT Authentication Middleware.
- *
- * Expects header:  Authorization: Bearer <token>
- *
- * On success, attaches `req.user` (full Mongoose document) so downstream
- * handlers can access the authenticated user without an extra DB call.
  */
 export const auth = async (req, res, next) => {
   try {
@@ -19,7 +14,7 @@ export const auth = async (req, res, next) => {
     const token = header.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'default_secret');
 
-    const user = await User.findById(decoded.id);
+    const user = findUserById(decoded.id);
     if (!user) {
       return res.status(401).json({ success: false, message: 'User not found' });
     }
@@ -35,7 +30,7 @@ export const auth = async (req, res, next) => {
 };
 
 /**
- * Admin-only guard.  Must come AFTER `auth` in the middleware chain.
+ * Admin-only guard.
  */
 export const adminOnly = (req, res, next) => {
   if (req.user.role !== 'admin') {

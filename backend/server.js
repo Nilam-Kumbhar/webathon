@@ -1,16 +1,18 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import mongoose from 'mongoose';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
+// Initialize SQLite database (creates tables on import)
+import './db.js';
+
 // Middleware
 import errorHandler from './middleware/errorHandler.js';
 
-// Route modules (advanced features)
+// Route modules
 import matchRoutes from './routes/matchRoutes.js';
 import recommendationRoutes from './routes/recommendationRoutes.js';
 import verificationRoutes from './routes/verificationRoutes.js';
@@ -26,17 +28,13 @@ import chatRoutes from './routes/chatRoutes.js';
 // Socket.io
 import { initChatSocket } from './socket/chatSocket.js';
 
-// __dirname polyfill for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: {
-    origin: '*', // tighten in production
-    methods: ['GET', 'POST'],
-  },
+  cors: { origin: '*', methods: ['GET', 'POST'] },
 });
 
 // ─── Global middleware ───────────────────────────────────
@@ -58,7 +56,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/match', matchRoutes);
 app.use('/api/recommendations', recommendationRoutes);
 app.use('/api/verification', verificationRoutes);
-app.use('/api', safetyRoutes);           // /api/report, /api/block, /api/block/list
+app.use('/api', safetyRoutes);
 app.use('/api/horoscope', horoscopeRoutes);
 app.use('/api/media', mediaRoutes);
 app.use('/api/admin', adminRoutes);
@@ -76,17 +74,11 @@ app.use(errorHandler);
 // ─── Start server ────────────────────────────────────────
 const PORT = process.env.PORT || 9080;
 
-const start = async () => {
+const start = () => {
   try {
-    if (!process.env.MONGO_URI) {
-      throw new Error('MONGO_URI is not set in environment variables.');
-    }
     if (!process.env.JWT_SECRET) {
       throw new Error('JWT_SECRET is not set in environment variables.');
     }
-
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('✅ MongoDB connected');
 
     // Initialize Socket.io chat system
     initChatSocket(io);

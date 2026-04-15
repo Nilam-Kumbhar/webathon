@@ -1,37 +1,22 @@
-import Interest from '../models/Interest.js';
+import { findOneInterest } from '../models/Interest.js';
 
 /**
- * Checks whether two users have a MUTUAL interest (both directions accepted).
- *
- * Mutual interest = A sent interest to B AND B accepted it,
- *                   OR B sent interest to A AND A accepted it.
- *
- * We only need ONE accepted record where one is sender and the other
- * is receiver, because "accepting" an interest means both parties agree.
- *
- * @param {string} userId1
- * @param {string} userId2
- * @returns {Promise<boolean>}
+ * Checks whether two users have a mutual interest (at least one accepted direction).
  */
-export async function hasMutualInterest(userId1, userId2) {
-  const mutual = await Interest.findOne({
-    $or: [
-      { sender: userId1, receiver: userId2, status: 'accepted' },
-      { sender: userId2, receiver: userId1, status: 'accepted' },
-    ],
-  }).lean();
+export function hasMutualInterest(userId1, userId2) {
+  const id1 = Number(userId1);
+  const id2 = Number(userId2);
 
-  return !!mutual;
+  const forward = findOneInterest({ sender: id1, receiver: id2, status: 'accepted' });
+  if (forward) return true;
+
+  const reverse = findOneInterest({ sender: id2, receiver: id1, status: 'accepted' });
+  return Boolean(reverse);
 }
 
 /**
  * Builds a deterministic conversation key from two user IDs.
- * Always puts the lexicographically smaller ID first so both
- * participants produce the same key.
- *
- * @param {string} id1
- * @param {string} id2
- * @returns {string}
+ * Sorts numerically so "user_3 ↔ user_7" always yields "3_7".
  */
 export function getConversationKey(id1, id2) {
   return [id1.toString(), id2.toString()].sort().join('_');
