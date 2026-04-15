@@ -22,7 +22,7 @@ export const sendInterest = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Cannot send interest to yourself' });
     }
 
-    const receiver = findUserById(Number(receiverId));
+    const receiver = await findUserById(Number(receiverId));
     if (!receiver) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
@@ -30,7 +30,7 @@ export const sendInterest = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'This user is unavailable' });
     }
 
-    const currentUser = findUserById(senderId);
+    const currentUser = await findUserById(senderId);
     if ((currentUser.blockedUsers || []).map(String).includes(receiverId.toString())) {
       return res.status(400).json({ success: false, message: 'You have blocked this user' });
     }
@@ -38,14 +38,14 @@ export const sendInterest = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'This user is unavailable' });
     }
 
-    const interest = createInterest(senderId, Number(receiverId));
+    const interest = await createInterest(senderId, Number(receiverId));
     return res.status(201).json({
       success: true,
       message: 'Interest sent ❤️',
       data: interest,
     });
   } catch (error) {
-    if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+    if (error.code === '23505') { // PostgreSQL unique constraint violation
       return res.status(409).json({ success: false, message: 'Interest already sent to this user' });
     }
     next(error);
@@ -65,7 +65,7 @@ export const respondToInterest = async (req, res, next) => {
       });
     }
 
-    const interest = findInterestById(Number(interestId));
+    const interest = await findInterestById(Number(interestId));
     if (!interest) {
       return res.status(404).json({ success: false, message: 'Interest not found' });
     }
@@ -79,11 +79,11 @@ export const respondToInterest = async (req, res, next) => {
     }
 
     const newStatus = action === 'accept' ? 'accepted' : 'rejected';
-    const updated = updateInterest(interest.id, { status: newStatus });
+    const updated = await updateInterest(interest.id, { status: newStatus });
 
     let isMutual = false;
     if (action === 'accept') {
-      const reverseAccepted = findOneInterest({
+      const reverseAccepted = await findOneInterest({
         sender: userId, receiver: interest.sender, status: 'accepted',
       });
       isMutual = Boolean(reverseAccepted);
@@ -105,7 +105,7 @@ export const respondToInterest = async (req, res, next) => {
 // ─── List received interests (pending) ──────────────────
 export const getReceivedInterests = async (req, res, next) => {
   try {
-    const interests = findReceivedInterests(req.user._id);
+    const interests = await findReceivedInterests(req.user._id);
     return res.json({ success: true, count: interests.length, data: interests });
   } catch (error) {
     next(error);
@@ -115,7 +115,7 @@ export const getReceivedInterests = async (req, res, next) => {
 // ─── List sent interests ────────────────────────────────
 export const getSentInterests = async (req, res, next) => {
   try {
-    const interests = findSentInterests(req.user._id);
+    const interests = await findSentInterests(req.user._id);
     return res.json({ success: true, count: interests.length, data: interests });
   } catch (error) {
     next(error);
@@ -126,7 +126,7 @@ export const getSentInterests = async (req, res, next) => {
 export const getMutualMatches = async (req, res, next) => {
   try {
     const userId = req.user._id;
-    const accepted = findAcceptedInterestsForUser(userId);
+    const accepted = await findAcceptedInterestsForUser(userId);
 
     const userIdStr = userId.toString();
     const matches = [];
@@ -141,7 +141,7 @@ export const getMutualMatches = async (req, res, next) => {
       if (seenUsers.has(otherUserId)) continue;
 
       // Check reverse direction exists
-      const reverseInterest = findOneInterest({
+      const reverseInterest = await findOneInterest({
         sender: Number(receiverId),
         receiver: Number(senderId),
         status: 'accepted',

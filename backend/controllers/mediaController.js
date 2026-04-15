@@ -12,7 +12,7 @@ export const uploadVideo = async (req, res, next) => {
     }
 
     const mockUrl = `/uploads/videos/${req.file.filename}`;
-    updateUser(req.user._id, { videoIntroUrl: mockUrl });
+    await updateUser(req.user._id, { videoIntroUrl: mockUrl });
 
     return res.json({
       success: true, message: 'Video intro uploaded successfully',
@@ -27,7 +27,7 @@ export const uploadVideo = async (req, res, next) => {
 export const getUserMedia = async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const user = findUserById(Number(userId));
+    const user = await findUserById(Number(userId));
 
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });

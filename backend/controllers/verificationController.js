@@ -7,7 +7,7 @@ import { findUserById, updateUser } from '../models/User.js';
 // ─── Upload ID document (mock) ──────────────────────────
 export const uploadDocument = async (req, res, next) => {
   try {
-    const currentUser = findUserById(req.user._id);
+    const currentUser = await findUserById(req.user._id);
     if (currentUser.verification.status === 'verified') {
       return res.status(400).json({ success: false, message: 'Already verified' });
     }
@@ -17,7 +17,7 @@ export const uploadDocument = async (req, res, next) => {
     }
 
     const mockUrl = `/uploads/verification/${req.file.filename}`;
-    updateUser(currentUser._id, {
+    await updateUser(currentUser._id, {
       verification: { documentUrl: mockUrl, status: 'pending' },
     });
 
@@ -33,7 +33,7 @@ export const uploadDocument = async (req, res, next) => {
 // ─── Check verification status ──────────────────────────
 export const getVerificationStatus = async (req, res, next) => {
   try {
-    const user = findUserById(req.user._id);
+    const user = await findUserById(req.user._id);
     return res.json({ success: true, data: user.verification });
   } catch (error) {
     next(error);
@@ -52,12 +52,12 @@ export const adminVerifyUser = async (req, res, next) => {
       });
     }
 
-    const user = findUserById(Number(userId));
+    const user = await findUserById(Number(userId));
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    const updated = updateUser(user._id, {
+    const updated = await updateUser(user._id, {
       verification: {
         ...user.verification,
         status: action === 'approve' ? 'verified' : 'rejected',

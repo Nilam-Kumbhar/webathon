@@ -1,7 +1,7 @@
-import db from '../db.js';
+import pool from '../db.js';
 
 /**
- * User Model — SQLite-backed user CRUD operations.
+ * User Model — PostgreSQL-backed user CRUD operations.
  *
  * JSON columns: interests, blockedUsers, lifestylePreferences,
  *               dailySuggestionsShown, partnerPreferences
@@ -11,14 +11,14 @@ import db from '../db.js';
 
 // ─── Columns to SELECT (excludes password) ──────────────
 const PUBLIC_COLUMNS = [
-  'id', 'name', 'email', 'gender', 'dateOfBirth', 'age', 'city', 'state', 'country',
+  'id', 'name', 'email', 'gender', '"dateOfBirth"', 'age', 'city', 'state', 'country',
   'education', 'occupation', 'job', 'salary', 'religion', 'caste', 'bio', 'interests',
-  'profilePhoto', 'profilePic', 'preferredAgeMin', 'preferredAgeMax', 'preferredCity',
-  'preferredEducation', 'preferredJob', 'preferredReligion', 'preferredCaste',
-  'lifestylePreferences', 'partnerPreferences', 'verification_documentUrl',
+  '"profilePhoto"', '"profilePic"', '"preferredAgeMin"', '"preferredAgeMax"', '"preferredCity"',
+  '"preferredEducation"', '"preferredJob"', '"preferredReligion"', '"preferredCaste"',
+  '"lifestylePreferences"', '"partnerPreferences"', 'verification_documentUrl',
   'verification_status', 'verification_reviewedBy', 'verification_reviewedAt',
-  'videoIntroUrl', 'blockedUsers', 'dailySuggestionsShown', 'dailySuggestionsDate',
-  'role', 'isBanned', 'createdAt', 'updatedAt',
+  '"videoIntroUrl"', '"blockedUsers"', '"dailySuggestionsShown"', '"dailySuggestionsDate"',
+  'role', '"isBanned"', '"createdAt"', '"updatedAt"',
 ].join(', ');
 
 /**
@@ -36,10 +36,10 @@ export function parseUser(row) {
     partnerPreferences: JSON.parse(row.partnerPreferences || '{}'),
     isBanned: Boolean(row.isBanned),
     verification: {
-      documentUrl: row.verification_documentUrl || null,
+      documentUrl: row.verification_documenturl || null,
       status: row.verification_status || 'unverified',
-      reviewedBy: row.verification_reviewedBy || null,
-      reviewedAt: row.verification_reviewedAt || null,
+      reviewedBy: row.verification_reviewedby || null,
+      reviewedAt: row.verification_reviewedat || null,
     },
   };
 }
@@ -54,85 +54,91 @@ function computeAge(dateOfBirth) {
   return age;
 }
 
-export function createUser(data) {
+function nowISO() {
+  return new Date().toISOString();
+}
+
+export async function createUser(data) {
   const age = computeAge(data.dateOfBirth);
+  const now = nowISO();
 
-  const stmt = db.prepare(`
+  const result = await pool.query(`
     INSERT INTO users (
-      name, email, password, gender, dateOfBirth, age, city, state, country,
+      name, email, password, gender, "dateOfBirth", age, city, state, country,
       education, occupation, job, salary, religion, caste, bio, interests,
-      profilePhoto, profilePic, preferredAgeMin, preferredAgeMax, preferredCity,
-      preferredEducation, preferredJob, preferredReligion, preferredCaste,
-      lifestylePreferences, partnerPreferences, verification_status, role, isBanned
+      "profilePhoto", "profilePic", "preferredAgeMin", "preferredAgeMax", "preferredCity",
+      "preferredEducation", "preferredJob", "preferredReligion", "preferredCaste",
+      "lifestylePreferences", "partnerPreferences", verification_status, role, "isBanned",
+      "createdAt", "updatedAt"
     ) VALUES (
-      @name, @email, @password, @gender, @dateOfBirth, @age, @city, @state, @country,
-      @education, @occupation, @job, @salary, @religion, @caste, @bio, @interests,
-      @profilePhoto, @profilePic, @preferredAgeMin, @preferredAgeMax, @preferredCity,
-      @preferredEducation, @preferredJob, @preferredReligion, @preferredCaste,
-      @lifestylePreferences, @partnerPreferences, @verificationStatus, @role, @isBanned
-    )
-  `);
-
-  const result = stmt.run({
-    name: data.name,
-    email: (data.email || '').toLowerCase().trim(),
-    password: data.password,
-    gender: data.gender || null,
-    dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth).toISOString() : null,
+      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,
+      $21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32
+    ) RETURNING id
+  `, [
+    data.name,
+    (data.email || '').toLowerCase().trim(),
+    data.password,
+    data.gender || null,
+    data.dateOfBirth ? new Date(data.dateOfBirth).toISOString() : null,
     age,
-    city: data.city || null,
-    state: data.state || null,
-    country: data.country || 'India',
-    education: data.education || null,
-    occupation: data.occupation || null,
-    job: data.job || null,
-    salary: data.salary ?? null,
-    religion: data.religion || null,
-    caste: data.caste || null,
-    bio: data.bio || null,
-    interests: JSON.stringify(data.interests || []),
-    profilePhoto: data.profilePhoto || null,
-    profilePic: data.profilePic || '',
-    preferredAgeMin: data.preferredAgeMin ?? 18,
-    preferredAgeMax: data.preferredAgeMax ?? 60,
-    preferredCity: data.preferredCity || null,
-    preferredEducation: data.preferredEducation || null,
-    preferredJob: data.preferredJob || null,
-    preferredReligion: data.preferredReligion || null,
-    preferredCaste: data.preferredCaste || null,
-    lifestylePreferences: JSON.stringify(data.lifestylePreferences || []),
-    partnerPreferences: JSON.stringify(data.partnerPreferences || {}),
-    verificationStatus: 'unverified',
-    role: data.role || 'user',
-    isBanned: data.isBanned ? 1 : 0,
-  });
+    data.city || null,
+    data.state || null,
+    data.country || 'India',
+    data.education || null,
+    data.occupation || null,
+    data.job || null,
+    data.salary ?? null,
+    data.religion || null,
+    data.caste || null,
+    data.bio || null,
+    JSON.stringify(data.interests || []),
+    data.profilePhoto || null,
+    data.profilePic || '',
+    data.preferredAgeMin ?? 18,
+    data.preferredAgeMax ?? 60,
+    data.preferredCity || null,
+    data.preferredEducation || null,
+    data.preferredJob || null,
+    data.preferredReligion || null,
+    data.preferredCaste || null,
+    JSON.stringify(data.lifestylePreferences || []),
+    JSON.stringify(data.partnerPreferences || {}),
+    'unverified',
+    data.role || 'user',
+    data.isBanned ? 1 : 0,
+    now, now,
+  ]);
 
-  return findUserById(result.lastInsertRowid);
+  return findUserById(result.rows[0].id);
 }
 
-export function findUserById(id) {
-  const row = db.prepare(`SELECT ${PUBLIC_COLUMNS} FROM users WHERE id = ?`).get(id);
-  return parseUser(row);
+export async function findUserById(id) {
+  const { rows } = await pool.query(`SELECT ${PUBLIC_COLUMNS} FROM users WHERE id = $1`, [id]);
+  return parseUser(rows[0] || null);
 }
 
-export function findUserByIdWithPassword(id) {
-  const row = db.prepare('SELECT * FROM users WHERE id = ?').get(id);
-  return parseUser(row);
+export async function findUserByIdWithPassword(id) {
+  const { rows } = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+  return parseUser(rows[0] || null);
 }
 
-export function findUserByEmail(email) {
-  const row = db.prepare(`SELECT ${PUBLIC_COLUMNS} FROM users WHERE email = ?`)
-    .get((email || '').toLowerCase().trim());
-  return parseUser(row);
+export async function findUserByEmail(email) {
+  const { rows } = await pool.query(
+    `SELECT ${PUBLIC_COLUMNS} FROM users WHERE LOWER(email) = LOWER($1)`,
+    [(email || '').toLowerCase().trim()]
+  );
+  return parseUser(rows[0] || null);
 }
 
-export function findUserByEmailWithPassword(email) {
-  const row = db.prepare('SELECT * FROM users WHERE email = ?')
-    .get((email || '').toLowerCase().trim());
-  return parseUser(row);
+export async function findUserByEmailWithPassword(email) {
+  const { rows } = await pool.query(
+    'SELECT * FROM users WHERE LOWER(email) = LOWER($1)',
+    [(email || '').toLowerCase().trim()]
+  );
+  return parseUser(rows[0] || null);
 }
 
-export function updateUser(id, updates) {
+export async function updateUser(id, updates) {
   // Compute age if dateOfBirth changes
   if (updates.dateOfBirth !== undefined) {
     updates.age = computeAge(updates.dateOfBirth);
@@ -173,72 +179,110 @@ export function updateUser(id, updates) {
     'role', 'isBanned',
   ]);
 
+  // Map camelCase field names to quoted PG column names
+  const COL_MAP = {
+    dateOfBirth: '"dateOfBirth"',
+    profilePhoto: '"profilePhoto"',
+    profilePic: '"profilePic"',
+    preferredAgeMin: '"preferredAgeMin"',
+    preferredAgeMax: '"preferredAgeMax"',
+    preferredCity: '"preferredCity"',
+    preferredEducation: '"preferredEducation"',
+    preferredJob: '"preferredJob"',
+    preferredReligion: '"preferredReligion"',
+    preferredCaste: '"preferredCaste"',
+    lifestylePreferences: '"lifestylePreferences"',
+    partnerPreferences: '"partnerPreferences"',
+    videoIntroUrl: '"videoIntroUrl"',
+    blockedUsers: '"blockedUsers"',
+    dailySuggestionsShown: '"dailySuggestionsShown"',
+    dailySuggestionsDate: '"dailySuggestionsDate"',
+    isBanned: '"isBanned"',
+  };
+
   const sets = [];
-  const params = { _id: id };
+  const values = [];
+  let paramIndex = 1;
 
   for (const [k, v] of Object.entries(updates)) {
     if (VALID.has(k)) {
-      sets.push(`${k} = @${k}`);
-      params[k] = v ?? null;
+      const col = COL_MAP[k] || k;
+      sets.push(`${col} = $${paramIndex}`);
+      values.push(v ?? null);
+      paramIndex++;
     }
   }
 
   if (sets.length === 0) return findUserById(id);
 
-  sets.push("updatedAt = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')");
-  db.prepare(`UPDATE users SET ${sets.join(', ')} WHERE id = @_id`).run(params);
+  sets.push(`"updatedAt" = $${paramIndex}`);
+  values.push(nowISO());
+  paramIndex++;
+
+  values.push(id);
+  await pool.query(`UPDATE users SET ${sets.join(', ')} WHERE id = $${paramIndex}`, values);
 
   return findUserById(id);
 }
 
-export function findUsers(filter = {}, options = {}) {
+export async function findUsers(filter = {}, options = {}) {
   const conditions = ['1=1'];
-  const params = {};
+  const values = [];
+  let paramIndex = 1;
 
   if (filter.gender) {
-    conditions.push('gender = @gender');
-    params.gender = filter.gender;
+    conditions.push(`gender = $${paramIndex++}`);
+    values.push(filter.gender);
   }
   if (filter.isBanned !== undefined) {
-    conditions.push('isBanned = @isBanned');
-    params.isBanned = filter.isBanned ? 1 : 0;
+    conditions.push(`"isBanned" = $${paramIndex++}`);
+    values.push(filter.isBanned ? 1 : 0);
   }
   if (filter.search) {
-    conditions.push('(name LIKE @search OR email LIKE @search)');
-    params.search = `%${filter.search}%`;
+    conditions.push(`(name ILIKE $${paramIndex} OR email ILIKE $${paramIndex})`);
+    values.push(`%${filter.search}%`);
+    paramIndex++;
   }
   if (filter.verification_status) {
-    conditions.push('verification_status = @vs');
-    params.vs = filter.verification_status;
+    conditions.push(`verification_status = $${paramIndex++}`);
+    values.push(filter.verification_status);
   }
   if (filter.excludeIds && filter.excludeIds.length > 0) {
-    const ph = filter.excludeIds.map((_, i) => `@_ex${i}`);
-    conditions.push(`id NOT IN (${ph.join(',')})`);
-    filter.excludeIds.forEach((v, i) => { params[`_ex${i}`] = v; });
+    const placeholders = filter.excludeIds.map(() => `$${paramIndex++}`);
+    conditions.push(`id NOT IN (${placeholders.join(',')})`);
+    values.push(...filter.excludeIds);
   }
 
   let sql = `SELECT ${PUBLIC_COLUMNS} FROM users WHERE ${conditions.join(' AND ')}`;
-  sql += ` ORDER BY ${options.orderBy || 'createdAt DESC'}`;
-  if (options.limit) { sql += ' LIMIT @_lim'; params._lim = options.limit; }
-  if (options.offset) { sql += ' OFFSET @_off'; params._off = options.offset; }
+  sql += ` ORDER BY ${options.orderBy || '"createdAt" DESC'}`;
+  if (options.limit) { sql += ` LIMIT $${paramIndex++}`; values.push(options.limit); }
+  if (options.offset) { sql += ` OFFSET $${paramIndex++}`; values.push(options.offset); }
 
-  return db.prepare(sql).all(params).map(parseUser);
+  const { rows } = await pool.query(sql, values);
+  return rows.map(parseUser);
 }
 
-export function countUsers(filter = {}) {
+export async function countUsers(filter = {}) {
   const conds = ['1=1'];
-  const params = {};
+  const values = [];
+  let paramIndex = 1;
+
   if (filter.search) {
-    conds.push('(name LIKE @search OR email LIKE @search)');
-    params.search = `%${filter.search}%`;
+    conds.push(`(name ILIKE $${paramIndex} OR email ILIKE $${paramIndex})`);
+    values.push(`%${filter.search}%`);
+    paramIndex++;
   }
   if (filter.verification_status) {
-    conds.push('verification_status = @vs');
-    params.vs = filter.verification_status;
+    conds.push(`verification_status = $${paramIndex++}`);
+    values.push(filter.verification_status);
   }
-  return db.prepare(`SELECT COUNT(*) as c FROM users WHERE ${conds.join(' AND ')}`).get(params).c;
+
+  const { rows } = await pool.query(
+    `SELECT COUNT(*) as c FROM users WHERE ${conds.join(' AND ')}`, values
+  );
+  return parseInt(rows[0].c);
 }
 
-export function deleteAllUsers() {
-  db.prepare('DELETE FROM users').run();
+export async function deleteAllUsers() {
+  await pool.query('DELETE FROM users');
 }

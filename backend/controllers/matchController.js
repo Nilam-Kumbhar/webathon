@@ -16,14 +16,14 @@ export const calculateMatch = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Cannot match with yourself' });
     }
 
-    const targetUser = findUserById(Number(targetUserId));
+    const targetUser = await findUserById(Number(targetUserId));
     if (!targetUser) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
     const { score, breakdown, explanation } = calculateMatchScore(currentUser, targetUser);
 
-    upsertMatchResult({
+    await upsertMatchResult({
       userId: currentUser._id,
       matchedUserId: targetUser._id,
       score, breakdown, explanation,
@@ -53,7 +53,7 @@ export const getRecommendations = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 20;
 
     const targetGender = currentUser.gender === 'male' ? 'female' : 'male';
-    const candidates = findUsers(
+    const candidates = await findUsers(
       {
         gender: targetGender, isBanned: false,
         excludeIds: [currentUser._id, ...(currentUser.blockedUsers || [])],
@@ -72,7 +72,7 @@ export const getRecommendations = async (req, res, next) => {
     // Bulk-upsert into cache
     if (top.length > 0) {
       try {
-        bulkUpsertMatchResults(top.map(m => ({
+        await bulkUpsertMatchResults(top.map(m => ({
           userId: currentUser._id, matchedUserId: m.candidate._id,
           score: m.score, breakdown: m.breakdown, explanation: m.explanation,
           expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),

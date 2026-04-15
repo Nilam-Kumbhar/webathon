@@ -30,13 +30,13 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'Name, email, and password are required.' });
     }
 
-    const existing = findUserByEmail(email);
+    const existing = await findUserByEmail(email);
     if (existing) {
       return res.status(409).json({ message: 'An account with this email already exists.' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = createUser({
+    const user = await createUser({
       name, email, password: hashedPassword,
       age, gender, education, job, salary, religion, caste, bio,
       interests: Array.isArray(interests) ? interests : [],
@@ -48,7 +48,7 @@ router.post('/register', async (req, res) => {
       token, user: toPublicUser(user),
     });
   } catch (error) {
-    if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+    if (error.code === '23505') { // PostgreSQL unique constraint violation
       return res.status(409).json({ message: 'An account with this email already exists.' });
     }
     return res.status(500).json({ message: 'Registration failed.', error: error.message });
@@ -63,7 +63,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Email and password are required.' });
     }
 
-    const user = findUserByEmailWithPassword(email);
+    const user = await findUserByEmailWithPassword(email);
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password.' });
     }

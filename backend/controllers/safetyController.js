@@ -23,18 +23,18 @@ export const reportUser = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Cannot report yourself' });
     }
 
-    const targetUser = findUserById(Number(reportedUserId));
+    const targetUser = await findUserById(Number(reportedUserId));
     if (!targetUser) {
       return res.status(404).json({ success: false, message: 'Reported user not found' });
     }
 
-    const report = createReport({
+    const report = await createReport({
       reportedBy: reporter._id,
       reportedUser: Number(reportedUserId),
       reason, description,
     });
 
-    const reportCount = countReportsByUser(Number(reportedUserId));
+    const reportCount = await countReportsByUser(Number(reportedUserId));
     const fakeCheck = detectFakeProfile(targetUser, reportCount);
 
     return res.status(201).json({
@@ -42,7 +42,7 @@ export const reportUser = async (req, res, next) => {
       data: { reportId: report._id, fakeProfileAnalysis: fakeCheck },
     });
   } catch (error) {
-    if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+    if (error.code === '23505') { // PostgreSQL unique constraint violation
       return res.status(409).json({
         success: false, message: 'You have already reported this user',
       });
@@ -64,18 +64,18 @@ export const blockUser = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Cannot block yourself' });
     }
 
-    const target = findUserById(Number(blockedUserId));
+    const target = await findUserById(Number(blockedUserId));
     if (!target) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
     // Re-fetch to get latest blockedUsers
-    const freshUser = findUserById(currentUser._id);
+    const freshUser = await findUserById(currentUser._id);
     const blocked = freshUser.blockedUsers || [];
     const numId = Number(blockedUserId);
     if (!blocked.includes(numId)) {
       blocked.push(numId);
-      updateUser(currentUser._id, { blockedUsers: blocked });
+      await updateUser(currentUser._id, { blockedUsers: blocked });
     }
 
     return res.json({ success: true, message: 'User blocked successfully' });
@@ -87,12 +87,13 @@ export const blockUser = async (req, res, next) => {
 // ─── List blocked users ─────────────────────────────────
 export const getBlockedList = async (req, res, next) => {
   try {
-    const user = findUserById(req.user._id);
+    const user = await findUserById(req.user._id);
     const blockedIds = user.blockedUsers || [];
-    const blockedUsers = blockedIds.map((id) => {
-      const u = findUserById(id);
-      return u ? { _id: u._id, id: u._id, name: u.name, profilePhoto: u.profilePhoto } : null;
-    }).filter(Boolean);
+    const blockedUsers = [];
+    for (const id of blockedIds) {
+      const u = await findUserById(id);
+      if (u) blockedUsers.push({ _id: u._id, id: u._id, name: u.name, profilePhoto: u.profilePhoto });
+    }
 
     return res.json({ success: true, count: blockedUsers.length, data: blockedUsers });
   } catch (error) {
@@ -110,8 +111,8 @@ export const getReports = async (req, res, next) => {
     const filter = {};
     if (statusFilter) filter.status = statusFilter;
 
-    const reports = findReportsPopulated(filter, { limit, offset: (page - 1) * limit });
-    const total = countReports(filter);
+    const reports = await findReportsPopulated(filter, { limit, offset: (page - 1) * limit });
+    const total = await countReports(filter);
 
     return res.json({
       success: true, page,

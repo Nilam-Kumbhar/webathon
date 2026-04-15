@@ -18,7 +18,7 @@ export const matchHoroscope = async (req, res, next) => {
       });
     }
 
-    const targetUser = findUserById(Number(targetUserId));
+    const targetUser = await findUserById(Number(targetUserId));
     if (!targetUser) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }

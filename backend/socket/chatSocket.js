@@ -11,7 +11,7 @@ const onlineUsers = new Map();
 /**
  * Authenticate socket connection via JWT.
  */
-function authenticateSocket(socket, next) {
+async function authenticateSocket(socket, next) {
   try {
     const token = socket.handshake.auth?.token || socket.handshake.query?.token;
     if (!token) {
@@ -19,7 +19,7 @@ function authenticateSocket(socket, next) {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = findUserById(decoded.id);
+    const user = await findUserById(decoded.id);
 
     if (!user) return next(new Error('User not found'));
     if (user.isBanned) return next(new Error('Account is banned'));
@@ -35,7 +35,7 @@ function authenticateSocket(socket, next) {
  * Main socket handler.
  */
 export function initChatSocket(io) {
-  io.use(authenticateSocket);
+  io.use((socket, next) => authenticateSocket(socket, next));
 
   io.on('connection', (socket) => {
     const userId = socket.user._id.toString();
@@ -48,11 +48,11 @@ export function initChatSocket(io) {
     io.emit('user_online', { userId });
 
     // ── Join a conversation room ────────────────────────
-    socket.on('join_chat', ({ partnerId }) => {
+    socket.on('join_chat', async ({ partnerId }) => {
       try {
         if (!partnerId) return;
 
-        const mutual = hasMutualInterest(userId, partnerId);
+        const mutual = await hasMutualInterest(userId, partnerId);
         if (!mutual) {
           return socket.emit('error', { message: 'Mutual interest required to chat' });
         }
@@ -66,7 +66,7 @@ export function initChatSocket(io) {
     });
 
     // ── Send a message ──────────────────────────────────
-    socket.on('send_message', ({ receiverId, text }) => {
+    socket.on('send_message', async ({ receiverId, text }) => {
       try {
         if (!receiverId || !text || !text.trim()) {
           return socket.emit('error', { message: 'receiverId and text are required' });
@@ -76,20 +76,20 @@ export function initChatSocket(io) {
           return socket.emit('error', { message: 'Message too long (max 2000 chars)' });
         }
 
-        const mutual = hasMutualInterest(userId, receiverId);
+        const mutual = await hasMutualInterest(userId, receiverId);
         if (!mutual) {
           return socket.emit('error', { message: 'You can only chat after mutual interest' });
         }
 
         const conversationKey = getConversationKey(userId, receiverId);
-        const message = createMessage({
+        const message = await createMessage({
           conversationKey,
           sender: Number(userId),
           receiver: Number(receiverId),
           text: text.trim(),
         });
 
-        const populated = findMessageByIdWithSender(message._id);
+        const populated = await findMessageByIdWithSender(message._id);
         io.to(conversationKey).emit('receive_message', populated);
 
         io.to(`user_${receiverId}`).emit('new_message_notification', {
@@ -117,11 +117,11 @@ export function initChatSocket(io) {
     });
 
     // ── Mark messages as read (real-time) ───────────────
-    socket.on('mark_read', ({ partnerId }) => {
+    socket.on('mark_read', async ({ partnerId }) => {
       try {
         if (!partnerId) return;
         const conversationKey = getConversationKey(userId, partnerId);
-        markMessagesAsRead(conversationKey, Number(userId));
+        await markMessagesAsRead(conversationKey, Number(userId));
         io.to(conversationKey).emit('messages_read', { by: userId });
       } catch (err) {
         socket.emit('error', { message: 'Failed to mark as read' });

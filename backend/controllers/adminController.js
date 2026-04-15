@@ -18,16 +18,17 @@ export const getAllUsers = async (req, res, next) => {
     if (search) filter.search = search;
     if (verificationStatus) filter.verification_status = verificationStatus;
 
-    const users = findUsers(filter, {
-      limit, offset: (page - 1) * limit, orderBy: 'createdAt DESC',
+    const users = await findUsers(filter, {
+      limit, offset: (page - 1) * limit, orderBy: '"createdAt" DESC',
     });
-    const total = countUsers(filter);
+    const total = await countUsers(filter);
 
-    const enriched = users.map((user) => {
-      const reportCount = countReportsByUser(user._id);
+    const enriched = [];
+    for (const user of users) {
+      const reportCount = await countReportsByUser(user._id);
       const fakeCheck = detectFakeProfile(user, reportCount);
-      return { ...user, fakeProfileRisk: fakeCheck };
-    });
+      enriched.push({ ...user, fakeProfileRisk: fakeCheck });
+    }
 
     return res.json({
       success: true, page,
@@ -43,7 +44,7 @@ export const getAllUsers = async (req, res, next) => {
 export const banUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const user = findUserById(Number(userId));
+    const user = await findUserById(Number(userId));
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
@@ -51,8 +52,8 @@ export const banUser = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Cannot ban an admin' });
     }
 
-    updateUser(user._id, { isBanned: true });
-    resolveReportsByUser(user._id);
+    await updateUser(user._id, { isBanned: true });
+    await resolveReportsByUser(user._id);
 
     return res.json({
       success: true,

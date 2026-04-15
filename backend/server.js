@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
-// Initialize SQLite database (creates tables on import)
+// Initialize PostgreSQL connection pool (Supabase)
 import './db.js';
 
 // Middleware

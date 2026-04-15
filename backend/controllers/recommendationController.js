@@ -13,7 +13,7 @@ export const getTopRecommendations = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 10;
 
     // Try cache first
-    const cached = findMatchResultsWithUser(currentUser._id, { limit });
+    const cached = await findMatchResultsWithUser(currentUser._id, { limit });
     if (cached.length >= limit) {
       return res.json({
         success: true, source: 'cache', count: cached.length,
@@ -26,7 +26,7 @@ export const getTopRecommendations = async (req, res, next) => {
 
     // Cache miss — compute fresh
     const targetGender = currentUser.gender === 'male' ? 'female' : 'male';
-    const candidates = findUsers(
+    const candidates = await findUsers(
       {
         gender: targetGender, isBanned: false,
         excludeIds: [currentUser._id, ...(currentUser.blockedUsers || [])],
@@ -54,7 +54,7 @@ export const getTopRecommendations = async (req, res, next) => {
 // ─── Daily Suggestions (no repeats) ─────────────────────
 export const getDailySuggestions = async (req, res, next) => {
   try {
-    let currentUser = findUserById(req.user._id);
+    let currentUser = await findUserById(req.user._id);
     const limit = parseInt(req.query.limit) || 5;
     const today = new Date().toDateString();
 
@@ -65,11 +65,11 @@ export const getDailySuggestions = async (req, res, next) => {
       new Date(currentUser.dailySuggestionsDate).toDateString() !== today
     ) {
       dailySuggestionsShown = [];
-      updateUser(currentUser._id, {
+      await updateUser(currentUser._id, {
         dailySuggestionsShown: [],
         dailySuggestionsDate: new Date().toISOString(),
       });
-      currentUser = findUserById(currentUser._id);
+      currentUser = await findUserById(currentUser._id);
     }
 
     const targetGender = currentUser.gender === 'male' ? 'female' : 'male';
@@ -78,7 +78,7 @@ export const getDailySuggestions = async (req, res, next) => {
       ...(currentUser.blockedUsers || []),
       ...dailySuggestionsShown,
     ];
-    const candidates = findUsers(
+    const candidates = await findUsers(
       { gender: targetGender, isBanned: false, excludeIds },
       { limit: 50 }
     );
@@ -91,7 +91,7 @@ export const getDailySuggestions = async (req, res, next) => {
     // Record shown users
     const shownIds = scored.map((m) => m.candidate._id);
     const updatedShown = [...dailySuggestionsShown, ...shownIds];
-    updateUser(currentUser._id, { dailySuggestionsShown: updatedShown });
+    await updateUser(currentUser._id, { dailySuggestionsShown: updatedShown });
 
     return res.json({
       success: true, count: scored.length,

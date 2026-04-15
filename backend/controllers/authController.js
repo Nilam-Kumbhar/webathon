@@ -12,7 +12,7 @@ export const mockLogin = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Email and password required' });
     }
 
-    const user = findUserByEmailWithPassword(email);
+    const user = await findUserByEmailWithPassword(email);
     if (!user) {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
