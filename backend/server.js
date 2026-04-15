@@ -4,6 +4,8 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
 // Middleware
 import errorHandler from './middleware/errorHandler.js';
@@ -18,12 +20,24 @@ import mediaRoutes from './routes/mediaRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/user.js';
+import interestRoutes from './routes/interestRoutes.js';
+import chatRoutes from './routes/chatRoutes.js';
+
+// Socket.io
+import { initChatSocket } from './socket/chatSocket.js';
 
 // __dirname polyfill for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: '*', // tighten in production
+    methods: ['GET', 'POST'],
+  },
+});
 
 // ─── Global middleware ───────────────────────────────────
 app.use(cors());
@@ -48,6 +62,8 @@ app.use('/api', safetyRoutes);           // /api/report, /api/block, /api/block/
 app.use('/api/horoscope', horoscopeRoutes);
 app.use('/api/media', mediaRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/interest', interestRoutes);
+app.use('/api/chat', chatRoutes);
 
 // ─── 404 handler ─────────────────────────────────────────
 app.use((req, res) => {
@@ -72,8 +88,12 @@ const start = async () => {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('✅ MongoDB connected');
 
-    app.listen(PORT, () => {
+    // Initialize Socket.io chat system
+    initChatSocket(io);
+
+    httpServer.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`💬 Socket.io ready on ws://localhost:${PORT}`);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error.message);
